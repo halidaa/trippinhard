@@ -1,0 +1,107 @@
+body{
+	background-color:#f5f7fa;
+	padding:20px;
+	text-align:center;
+}
+h1{
+	color:#37bc9b;
+	font-family:"Bangers";
+	font-size:3em;
+	font-weight:normal;
+}
+#player{
+	background:url(player-front.png);
+	position:absolute;
+	width:100px;
+	height:100px;
+	margin:-2px;
+}
+#player.top{
+	background:url(player-back.png);
+}
+#player.right{
+	background:url(player-right.png);
+}
+#player.left{
+	background:url(player-left.png);
+}
+#board{
+	position:relative;
+	display:inline-block;
+}
+.house{
+	background:url(house.png);
+	width:150px;
+	height:150px;
+	position:absolute;
+}
+.building{
+	background:url(building.png);
+	width:200px;
+	height:200px;
+	position:absolute;
+}
+.row:after{
+	content:' ';
+	display:table;
+	clear:both;
+}
+.tile{
+	background:#A0D468 url(tiles_100.png);
+	float:left;
+	width:100px;
+	height:100px;
+}
+.tile.blank{
+	background:#A0D468;
+}
+.tile.left-top-bottom-open{
+	background-position-x:-100px;
+}
+.tile.right-left-open{
+	background-position-x:-200px;
+}
+.tile.left-open{
+	background-position-x:-300px;
+}
+.tile.bottom-open{
+	background-position-x:-400px;
+}
+.tile.right-bottom-open{
+	background-position-y:-100px;
+}
+.tile.right-left-top-bottom-open{
+	background-position-x:-100px;
+	background-position-y:-100px;
+}
+.tile.right-left-bottom-open{
+	background-position-x:-200px;
+	background-position-y:-100px;
+}
+.tile.left-bottom-open{
+	background-position-x:-300px;
+	background-position-y:-100px;
+}
+.tile.top-bottom-open{
+	background-position-x:-400px;
+	background-position-y:-100px;
+}
+.tile.right-top-open{
+	background-position-y:-200px;
+}
+.tile.right-left-top-open{
+	background-position-x:-100px;
+	background-position-y:-200px;
+}
+.tile.right-top-bottom-open{
+	background-position-x:-200px;
+	background-position-y:-200px;
+}
+.tile.left-top-open{
+	background-position-x:-300px;
+	background-position-y:-200px;
+}
+.tile.top-open{
+	background-position-x:-400px;
+	background-position-y:-200px;
+}
