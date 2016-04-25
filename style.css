@@ -4,18 +4,23 @@ body{
 	padding:10px 0;
 	text-align:center;
 }
-h1{
-	color:#37bc9b;
-	font-family:"Bangers";
-	font-size:3em;
-	font-weight:normal;
-}
 #player{
 	background:url(player-front.png);
 	position:absolute;
 	width:100px;
 	height:100px;
 	margin:-2px;
+}
+#player .companion{
+	height:20px;
+	width:20px;
+	background-color:#F5F7FA;
+	box-shadow:0 0 10px 2px #967ADC;
+	border-radius:100px;
+	position:absolute;
+	top:-20px;
+	left:-5%;
+	opacity:.8;
 }
 #player.top{
 	background:url(player-back.png);
@@ -26,12 +31,51 @@ h1{
 #player.left{
 	background:url(player-left.png);
 }
-#board{
+#sidebar{
+	height:600px;
+	width:250px;
+	margin:0;
+	display:inline-block;
+	text-align:left;
+	vertical-align:top;
+	position:relative;
+}
+#programming-panel{
+	font-family:"Droid Sans Mono", monospace;
+	background-color:#FEFEFE;
+	border:2.5px solid #656D78;
+	color:#444444;
+	padding:10px;
+	height:395px;
+	margin-top:11px;
+}
+#programming-panel .title{
+	background-color:#656D78;
+	margin:-10px -10px 20px;
+	padding:10px;
+	color:#FEFEFE;
+}
+#sidebar h1{
+	color:#37BC9B;
+	font-family:"Chelsea Market";
+	font-size:4em;
+	margin:0;
+	padding-bottom:8px;
+	text-transform:uppercase;
+}
+#world{
+	position:relative;
+	display:inline-block;
+	max-width:1000px;
+	max-height:600px;
+	overflow:hidden;
+}
+#map{
 	border-bottom:1px solid #e6e9ed;
 	display:inline-block;
 	position:relative;
 }
-#npc-panel-wrapper{
+#speech-panel-wrapper{
 	position:absolute;
 	top:0;
 	bottom:0;
@@ -39,10 +83,12 @@ h1{
 	left:0;
 	z-index:10;
 	background-color:rgba(50,50,50,.3);
+	display:none;
+	overflow:hidden;
 }
-#npc-panel-wrapper .panel{
+#speech-panel-wrapper .panel{
 	position:absolute;
-	bottom:0;
+	bottom:-100%;
 	left:0;
 	right:0;
 	margin:0 auto;
@@ -50,21 +96,21 @@ h1{
 	text-align:left;
 	width:500px;
 }
-#npc-panel-wrapper .header{
+#speech-panel-wrapper .header{
 	box-shadow: 0 2px 2px 1px #afafaf;
 	color:white;
 	padding:10px;
 	position:relative;
 	z-index:5;
 }
-#npc-panel-wrapper .header:after{
+#speech-panel-wrapper .header:after{
 	content:' ';
 	position:absolute;
 	right:0;
 	bottom:0;
 	border:100px solid transparent;
 }
-#npc-panel-wrapper .header .avatar{
+#speech-panel-wrapper .header .avatar{
 	background-color:#e1e1e1;
 	border-radius:100%;
 	display:inline-block;
@@ -76,35 +122,75 @@ h1{
 	top:50px;
 	width:75px;
 }
-#npc-panel-wrapper .header .avatar img{
+#speech-panel-wrapper .header .avatar img{
 	width:100%;
 }
-#npc-panel-wrapper .header h2{
+#speech-panel-wrapper .header h2{
 	display:inline-block;
 	margin:5px 0;
 	position:relative;
 	z-index:5;
 }
-#npc-panel-wrapper .header.red{
+#speech-panel-wrapper .header .fa-times{
+	position:absolute;
+	top:10px;
+	right:10px;
+	z-index:6;
+}
+#speech-panel-wrapper .header .fa-times:hover{
+	cursor:pointer;
+}
+#speech-panel-wrapper.red .header{
 	background-color:#ED5565;
 }
-#npc-panel-wrapper .header.red:after{
+#speech-panel-wrapper.red .header:after{
 	border-right-color:#DA4453;
 	border-bottom-color:#DA4453;
 }
-#npc-panel-wrapper .body{
+#speech-panel-wrapper.yellow .header{
+	background-color:#FFCE54;
+}
+#speech-panel-wrapper.yellow .header:after{
+	border-right-color:#F6BB42;
+	border-bottom-color:#F6BB42;
+}
+#speech-panel-wrapper.dark-gray .header{
+	background-color:#656D78;
+}
+#speech-panel-wrapper.dark-gray .header:after{
+	border-right-color:#434A54;
+	border-bottom-color:#434A54;
+}
+#speech-panel-wrapper .body{
 	background:#f5f7fa;
 	padding:20px 25px 1px;
 	padding-left:100px;
 }
-#npc-panel-wrapper .body p{
-	text-align:right;
+#speech-panel-wrapper .body .speech{
+	height:65px;
 }
-#npc-panel-wrapper .body span{
+#speech-panel-wrapper .body .navigation:after{
+	content:" ";
+	clear:both;
+	display:table;
+}
+#speech-panel-wrapper.red .body span{
 	color:#ED5565;
 }
-#npc-panel-wrapper .body span:hover{
+#speech-panel-wrapper.yellow .body span{
+	color:#FFCE54;
+}
+#speech-panel-wrapper.dark-gray .body span{
+	color:#656D78;
+}
+#speech-panel-wrapper .body span:hover{
 	cursor:pointer;
+}
+#speech-panel-wrapper .body .next-button{
+	float:right;
+}
+#speech-panel-wrapper .body .prev-button{
+	float:left;
 }
 .house{
 	background:url(house.png);
@@ -130,7 +216,7 @@ h1{
 	height:100px;
 }
 .tile.blank{
-	background:#A0D468;
+	background:#A0D468 url(texture.png);
 }
 .tile.left-top-bottom-open{
 	background-position-x:-100px;

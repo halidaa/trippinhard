@@ -2,32 +2,45 @@
 <html>
 	<head>
 		<title>TrippinHard</title>
-		<link href='https://fonts.googleapis.com/css?family=Bangers|McLaren|Roboto:300,400,700' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Chelsea+Market|Droid+Sans+Mono|Roboto:300,400,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 		<link href='style.css' rel='stylesheet' type='text/css'>
 
 		<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
 	</head>
 	<body>
-		<div id="board">
-			<img src="rosa.png" style="position:absolute;top:105px;left:200px" />
-			<div class="house" style="top:55px;left:275px"></div>
-			<div class="house" style="top:250px;left:725px"></div>
-			<div class="building" style="top:350px;left:200px"></div>
-			<div id="player" style="top:200px;left:0"></div>
-			<div id="npc-panel-wrapper">
+		<div id="sidebar">
+			<h1>Trippin' Hard</h1>
+			<div id="programming-panel">
+				<div class="title">console</div>
+				<div class="content">.test-for-console{display:none;}</div>
+			</div>
+		</div>
+		<div id="world">
+			<div id="map">
+				<div class="house" style="top:55px;left:275px"></div>
+				<div class="house" style="top:250px;left:725px"></div>
+				<div class="building" style="top:350px;left:200px"></div>
+				<div id="player" style="top:200px;left:0">
+					<div class="companion">
+					</div>
+				</div>
+			</div>
+			<div id="speech-panel-wrapper">
 				<div class="panel">
-					<div class="header red">
-						<div class="avatar"><img src="avatar-rosa.png" /></div>
-						<h2 class="name">Rosa Redrose</h2>
+					<div class="header">
+						<div class="avatar"><img src="" /></div>
+						<h2 class="name"></h2>
+						<i class="fa fa-times fa-lg"></i>
 					</div>
 					<div class="body">
-						Oh, finally! Someone I can count on. Would you be able to help me paint my fences?
-						<p><span class="next-button">NEXT <i class="fa fa-arrow-right"></i></span></p>
+						<div class="speech"></div>
+						<p class="navigation"><span class="prev-button"><i class="fa fa-arrow-left"></i> PREV</span><span class="next-button">NEXT <i class="fa fa-arrow-right"></i></span></p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<script src="game.js"></script>
+		<script src="dialog.js"></script>
 	</body>
 </html>

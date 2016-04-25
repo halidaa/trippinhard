@@ -1,11 +1,16 @@
 var tileSize = 100;
-var map = [	[0,0,0,0,0,0,1,1,1,1],
-			[0,0,0,0,0,0,1,0,0,0],
-			[1,1,1,1,1,1,1,0,0,0],
-			[0,1,0,0,0,0,1,0,0,0],
-			[0,1,0,0,0,0,1,1,1,1],
-			[0,1,0,0,0,0,0,0,0,0]];
+var map = [	[0,0,0,0,0,0,1,1,1,1,1,1,1],
+			[0,0,0,0,0,0,1,0,0,0,0,1,0],
+			[1,1,1,1,1,1,1,0,0,0,0,1,0],
+			[0,1,0,0,0,0,1,0,0,0,0,1,0],
+			[0,1,0,0,0,0,1,1,1,1,1,1,0],
+			[0,1,0,0,0,0,0,0,0,0,0,0,0],
+			[1,1,0,0,0,0,0,0,0,0,0,0,0],
+			[0,1,0,0,0,0,0,0,0,0,0,0,0],
+			[0,1,0,0,0,0,0,0,0,0,0,0,0]
+		  ];
 var floatValue = 10;
+var flyValue = 85;
 var animating = false;
 
 function getTileClass(y,x){
@@ -45,24 +50,60 @@ function floatPlayer(){
 	)
 }
 
+function animateCompanion(){
+	$("#player .companion").animate({"left":flyValue+"%","margin-top":"+="+floatValue},850,function(){
+			if(flyValue == 85)
+				flyValue = 5;
+			else
+				flyValue = 85;
+			animateCompanion();
+		}
+	)
+}
+
+function drawMap(){
+	$("#map").height(map.length * 100).width(map[0].length * 100);
+	for (var y = 0; y < map.length; y++){
+		$("#map").append("<div class='row'></div>");
+		for (var x = 0; x < map[y].length; x++){
+			$("#map").find(".row").eq(y).append("<div class='"+getTileClass(y,x)+"'></div>");
+		}
+	}
+}
+
 $(document).keydown(function(e) {
+	if(isOnDialog) return;
 	var positionX = parseInt($("#player").css("left"));
 	var positionY = parseInt($("#player").css("top"));
+	var shouldAnimate = false;
 	if(e.keyCode==37) {
-		positionX-=tileSize;
+		//only move if already facing that direction
+		if($("#player").hasClass("left")){
+			positionX-=tileSize;
+			shouldAnimate = true;
+		}
 		$("#player").removeClass().addClass("left");
 	} else if(e.keyCode == 39) {
-		positionX+=tileSize;
+		if($("#player").hasClass("right")){
+			positionX+=tileSize;
+			shouldAnimate = true;
+		}
 		$("#player").removeClass().addClass("right");
 	} else if(e.keyCode==38) {
-		positionY-=tileSize;
+		if($("#player").hasClass("top")){
+			positionY-=tileSize;
+			shouldAnimate = true;
+		}
 		$("#player").removeClass().addClass("top");
 	} else if(e.keyCode == 40) {
-		positionY+=tileSize;
+		if($("#player").attr("class") == ""){
+			positionY+=tileSize;
+			shouldAnimate = true;
+		}
 		$("#player").removeClass();
 	}
 	//prevent keydown when still animating
-	if(!animating && isWalkable((positionY/tileSize),(positionX/tileSize))){
+	if(!animating && shouldAnimate && isWalkable((positionY/tileSize),(positionX/tileSize))){
 		animating = true;
 		$("#player").animate({"top":positionY+"px","left":positionX+"px"},750,function(){
 			animating = false;
@@ -72,13 +113,11 @@ $(document).keydown(function(e) {
 
 $(document).ready(function(){
 	//draw the board
-	for (var y = 0; y < map.length; y++){
-		$("#board").append("<div class='row'></div>");
-		for (var x = 0; x < map[y].length; x++){
-			$("#board").find(".row").eq(y).append("<div class='"+getTileClass(y,x)+"'></div>");
-		}
-	}
+	drawMap();
 	
 	//float the avatar thingy
 	floatPlayer();
+	
+	//make the companion fly around
+	animateCompanion();
 })
