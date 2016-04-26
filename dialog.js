@@ -62,7 +62,19 @@ characters["vernon"] = {
 							"hometown":"red",
 							"hasTask":false
 						};
-characters["redguard"] = {
+characters["redguard-right"] = {
+							"name":"Guard of the Red Gate",
+							"filename":"npc/redguard",
+							"hometown":"red",
+							"hasTask":true,
+							"taskIntro":[
+								"I think there's still more for you to do here in Red Town."
+							],
+							"taskFinished":[
+								"Good luck on your journey, Joe. I hope we can meet again."
+							]
+						};
+characters["redguard-left"] = {
 							"name":"Guard of the Red Gate",
 							"filename":"npc/redguard",
 							"hometown":"red",
