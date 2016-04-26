@@ -29,6 +29,7 @@ var offsetX = 0;
 var mapWidthTiles = 10 * tileSize;
 var mapHeightTiles = 6 * tileSize;
 var npcs = ["rosa", "amber", "redguard", "orangeguard", "ray", "carrot", "scarlett", "varnon"];
+var timer;
 
 //Needed for Rosa's tasks
 var rosaClasses = ["APPLES", "ORANGES", "LEMONS", "LIMES", "BERRIES"];
@@ -135,9 +136,13 @@ function talk(pY, pX) {
 }
 
 function rosaTask() {
+	if(timer)
+		clearTimeout(timer);
+	
 	if(rosaCurrentTask >= rosaClasses.length) {
 		$('#map').show();
 		$('#task').hide();
+		return;
 	}
 	$('#map').hide();
 	$('#task').show();
@@ -274,14 +279,15 @@ $(document).ready(function(){
 		var answer = $('#answer').html().replace('&nbsp;', '').replace('<br>', '').trim();
 		if(answer == rosaAnswers[rosaCurrentTask]){
 			$('#rosaImage').attr('src', rosaClasses[rosaCurrentTask] + '_DONE.png')
-			
-			//TODO: Dialog
-			rosaCurrentTask++;
-			$('#task').html('');
-			rosaTask();
+			timer = setTimeout(function(){ 
+				//TODO: Dialog
+				rosaCurrentTask++;
+				$('#task').html('');
+				rosaTask();
+			}, 2000);  
 		}
 		else {
-			alert('ct: ' + rosaCurrentTask);
+			alert('Please Try Again');
 		}
 	});
 	
