@@ -59,11 +59,25 @@ body{
 }
 
 #programming-panel .footer{
-	background-color:#656D78;
 	color:#FEFEFE;
+	right:0;
+	left:0;
 	bottom:0;
 	position: absolute;
-	width: 250px;
+	text-align:center;
+}
+
+#submit{
+	background-color:#26BC9B;
+	border:0;
+	color:white;
+	font-family:"Droid Sans Mono", monospace;
+	padding:10px;
+	margin:10px;
+}
+
+#submit:hover{
+	cursor:pointer;
 }
 
 #sidebar h1{
@@ -87,12 +101,19 @@ body{
 	position:relative;
 }
 #task{
-	max-width:1000px;
+	/*max-width:1000px;
 	max-height:600px;
 	width: 1000px;
 	height: 600px;
 	display:inline-block;
-	overflow:hidden;
+	overflow:hidden;*/
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:100;
+}
+#task img{
+	width:70%;
 }
 #speech-panel-wrapper{
 	position:absolute;
@@ -104,6 +125,15 @@ body{
 	background-color:rgba(50,50,50,.3);
 	display:none;
 	overflow:hidden;
+}
+#speech-panel-wrapper.in-task{
+	background-color:#A0D468;
+}
+#speech-panel-wrapper.in-task .body .speech{
+	height:45px;
+}
+#speech-panel-wrapper.in-task .fa-times{
+	display:none;
 }
 #speech-panel-wrapper .panel{
 	position:absolute;

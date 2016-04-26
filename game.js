@@ -28,13 +28,14 @@ var offsetY = 0;
 var offsetX = 0;
 var mapWidthTiles = 10 * tileSize;
 var mapHeightTiles = 6 * tileSize;
-var npcs = ["rosa", "amber", "redguard", "orangeguard", "ray", "carrot", "scarlett", "varnon"];
+var npcs = ["rosa", "amber", "redguard", "orangeguard", "ray", "carrot", "scarlett", "vernon"];
 var timer;
 
 //Needed for Rosa's tasks
 var rosaClasses = ["APPLES", "ORANGES", "LEMONS", "LIMES", "BERRIES"];
 var rosaAnswers = ["red", "orange", "yellow", "green", "blue"];
 var rosaCurrentTask = 0;
+var isInTask = false;
 
 function getTileClass(y,x){
 	var tileClass = "tile ";
@@ -140,19 +141,27 @@ function rosaTask() {
 		clearTimeout(timer);
 	
 	if(rosaCurrentTask >= rosaClasses.length) {
-		$('#map').show();
+		//$('#map').show();
+		characters["rosa"].hasTask = false;
+		closeDialog();
 		$('#task').hide();
+		isInTask = false;
 		return;
 	}
-	$('#map').hide();
+	//$('#map').hide();
+	showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
 	$('#task').show();
 	$('#task').append('<img id="rosaImage" src="' + rosaClasses[rosaCurrentTask] + '.png" />');
 	$('.content').html('.' + rosaClasses[rosaCurrentTask] + ' { <br />&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
 	$('#answer').focus();
 	
-	$('#answer').on('keyup', function() {
+	$('#answer').on('keyup', function(e) {
 		if(!$(this).html())
 			$(this).html('&nbsp;');
+		if (e.keyCode == 13) {
+			e.preventDefault();
+			$("#submit").click();
+		}
 	});
 }
 
@@ -160,7 +169,8 @@ function startTask() {
 	switch (characterName) {
 		case "Rosa Redrose":
 			//showDialog(characters["rosa"], "tasks");
-			closeDialog();
+			//closeDialog();
+			isInTask = true;
 			rosaTask();
 			break;
 		case "Scarlett Firework":
@@ -171,6 +181,7 @@ function startTask() {
 }
 
 $(document).keydown(function(e) {
+	if (isInTask) return;
 	var up, down, left, right = false;
 	var positionX = parseInt($("#player").css("left"));
 	var positionY = parseInt($("#player").css("top"));
@@ -178,7 +189,7 @@ $(document).keydown(function(e) {
 	if(e.keyCode==37) {
 		//if dialog is on, arrow keys control dialogs
 		if(isOnDialog){
-			prevLine();
+			//prevLine();
 		}
 		//else, it controls the player
 		else{
@@ -192,7 +203,7 @@ $(document).keydown(function(e) {
 		}
 	} else if(e.keyCode == 39) {
 		if(isOnDialog){
-			nextLine();
+			//nextLine();
 		}
 		else{
 			if($("#player").hasClass("right")){
@@ -204,7 +215,7 @@ $(document).keydown(function(e) {
 		}
 	} else if(e.keyCode==38) {
 		if(isOnDialog){
-			prevLine();
+			//prevLine();
 		}
 		else{
 			if($("#player").hasClass("top")){
@@ -216,7 +227,7 @@ $(document).keydown(function(e) {
 		}
 	} else if(e.keyCode == 40) {
 		if(isOnDialog){
-			nextLine();
+			//nextLine();
 		}
 		else{
 			if($("#player").attr("class") == ""){
@@ -270,7 +281,7 @@ $(document).keydown(function(e) {
 		});
 	}
 	
-	talk(pY,pX);
+	talk(Math.ceil(pY),Math.ceil(pX));
 });
 
 $(document).ready(function(){
@@ -278,7 +289,8 @@ $(document).ready(function(){
 	$('#submit').on('click', function() {
 		var answer = $('#answer').html().replace('&nbsp;', '').replace('<br>', '').trim();
 		if(answer == rosaAnswers[rosaCurrentTask]){
-			$('#rosaImage').attr('src', rosaClasses[rosaCurrentTask] + '_DONE.png')
+			$('#rosaImage').attr('src', rosaClasses[rosaCurrentTask] + '_DONE.png');
+			showTaskDialog(characters["rosa"],characters["rosa"].positiveFeedback);
 			timer = setTimeout(function(){ 
 				//TODO: Dialog
 				rosaCurrentTask++;
@@ -287,7 +299,11 @@ $(document).ready(function(){
 			}, 2000);  
 		}
 		else {
-			alert('Please Try Again');
+			showTaskDialog(characters["rosa"],characters["rosa"].negativeFeedback);
+			setTimeout(function(){
+				showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
+				$('#answer').focus();
+			}, 600)
 		}
 	});
 	

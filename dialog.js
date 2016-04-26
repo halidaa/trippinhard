@@ -29,7 +29,6 @@ characters["rosa"] = {
 							"Do you think you can help us spruce up and add some color to our signs?"
 						],
 						"tasks":[
-							"",
 							"Let's change the APPLES sign to red text.",
 							"Let's change the ORANGES sign to orange text.",
 							"Let's change the LEMONS sign to yellow text.",
@@ -116,7 +115,7 @@ function showDialog(character){
 		}
 	}
 	isOnDialog = true;
-	$("#speech-panel-wrapper").fadeIn(300,function(){
+	$("#speech-panel-wrapper").removeClass("in-task").fadeIn(300,function(){
 		var _speech = $("#speech-panel-wrapper");
 		
 		$("#speech-panel-wrapper").addClass(character.hometown);
@@ -124,15 +123,23 @@ function showDialog(character){
 		$("#speech-panel-wrapper").find(".name").text(character.name);
 		$("#speech-panel-wrapper").find(".body .speech").html(currentLines[currentIdx]);
 		$("#speech-panel-wrapper").find(".body .prev-button").hide();
+		$("#speech-panel-wrapper").find(".body .start-button").hide();
 		if(currentLines.length < 2)
 			$("#speech-panel-wrapper").find(".body .next-button").hide();
 		else {
 			$("#speech-panel-wrapper").find(".body .next-button").show();
-			$("#speech-panel-wrapper").find(".body .start-button").hide();
 		}
 		
 		$("#speech-panel-wrapper").find(".panel").animate({"bottom":0},400);
 	})
+}
+
+function showTaskDialog(character, line){
+	$("#speech-panel-wrapper").addClass(character.hometown+" in-task");
+	$("#speech-panel-wrapper").find(".avatar img").attr("src",character.filename+"-avatar.png");
+	$("#speech-panel-wrapper").find(".name").text(character.name);
+	$("#speech-panel-wrapper").find(".body .speech").html(line);
+	$("#speech-panel-wrapper span").hide();
 }
 
 function closeDialog(){
@@ -145,15 +152,19 @@ function closeDialog(){
 }
 
 function nextLine(){
+	if($(".start-button").is(":visible")){
+		startTask();
+		return;
+	}
 	if(currentIdx < currentLines.length - 1)
 		currentIdx ++;
 	if(currentIdx == (currentLines.length - 1)) {
-		$("#speech-panel-wrapper").find(".body .next-button").hide();
-		$("#speech-panel-wrapper").find(".body .start-button").show();
+		$("#speech-panel-wrapper .next-button").hide();
+		$("#speech-panel-wrapper .start-button").show();
 	}
 	if(currentIdx > 0)
-		$("#speech-panel-wrapper").find(".body .prev-button").show();
-	$("#speech-panel-wrapper").find(".body .speech").html(currentLines[currentIdx]);
+		$("#speech-panel-wrapper .prev-button").show();
+	$("#speech-panel-wrapper .body .speech").html(currentLines[currentIdx]);
 }
 
 function prevLine(){
