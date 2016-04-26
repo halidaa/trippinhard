@@ -21,6 +21,7 @@ body{
 	top:-20px;
 	left:-5%;
 	opacity:.8;
+	z-index: 10;
 }
 #player.top{
 	background:url(player-back.png);
@@ -48,6 +49,7 @@ body{
 	padding:10px;
 	height:395px;
 	margin-top:11px;
+	position: relative;
 }
 #programming-panel .title{
 	background-color:#656D78;
@@ -55,6 +57,15 @@ body{
 	padding:10px;
 	color:#FEFEFE;
 }
+
+#programming-panel .footer{
+	background-color:#656D78;
+	color:#FEFEFE;
+	bottom:0;
+	position: absolute;
+	width: 250px;
+}
+
 #sidebar h1{
 	color:#37BC9B;
 	font-family:"Chelsea Market";
@@ -74,6 +85,14 @@ body{
 	border-bottom:1px solid #e6e9ed;
 	display:inline-block;
 	position:relative;
+}
+#task{
+	max-width:1000px;
+	max-height:600px;
+	width: 1000px;
+	height: 600px;
+	display:inline-block;
+	overflow:hidden;
 }
 #speech-panel-wrapper{
 	position:absolute;
@@ -189,19 +208,41 @@ body{
 #speech-panel-wrapper .body .next-button{
 	float:right;
 }
+#speech-panel-wrapper .body .start-button{
+	float:right;
+	display: none;
+}
 #speech-panel-wrapper .body .prev-button{
 	float:left;
+}
+#answer {
+	display: inline-block;
+	min-width:5;
 }
 .house{
 	background:url(house.png);
 	width:150px;
 	height:150px;
 	position:absolute;
+	margin-top: -50px;
 }
 .building{
 	background:url(building.png);
 	width:200px;
 	height:200px;
+	position:absolute;
+	margin-top: -100px;
+}
+.rosa {
+	background:url(npc/rosa-front.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.redguard {
+	background:url(npc/redguard-right.png);
+	width:100px;
+	height:100px;
 	position:absolute;
 }
 .row:after{
@@ -267,4 +308,13 @@ body{
 .tile.top-open{
 	background-position-x:-400px;
 	background-position-y:-200px;
+}
+
+.house-tile {
+}
+
+.building-tile {
+}
+
+.rosa-tile {
 }
