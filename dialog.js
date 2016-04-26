@@ -2,6 +2,13 @@ var isOnDialog = false;
 
 var currentIdx = 0;
 var currentLines = [];
+var defaultLines = [];
+defaultLines["red"] = ["Welcome to Red Town, where everyone speaks red!",
+					"Definitely check out the marketplace. There's a shop that sells the most delicious fruits!",
+					"Hm, I've heard about the portal in stories. You'll need to leave through the gate to move north."];
+defaultLines["yellow"] = ["Welcome to Yellowville, yo! We speak multicolors as long as you're cool.",
+						  "Did you hear? That weird girl got her cat is stuck on the tree again.",
+						  "Hm, I've heard about the portal in stories. You'll need to leave through the gate to move north."];
 
 var characters = [];
 var story = [];
@@ -14,49 +21,99 @@ characters["joe"] = {
 characters["rosa"] = {
 						"name":"Rosa Redrose",
 						"filename":"npc/rosa",
-						"hometown":"red"
+						"hometown":"red",
+						"hasTask":true,
+						"taskIntro":[
+							"We just can't compare against some of the fancy stores in other towns...they look so nice and shiny.",
+							"Do you think you can help us spruce up and add some color to our signs?"
+						],
+						"tasks":[
+							"Let's change the APPLES sign to red text.",
+							"Let's change the ORANGES sign to orange text.",
+							"Let's change the LEMON sign to lemon text.",
+							"Let's change the LIME sign to green text.",
+							"Let's change the BERRIES sign to blue text."
+						],
+						"positiveFeedback":"Great!",
+						"negativeFeedback":"Hm, not quite...but almost..."
 					};
 characters["scarlett"] = {
 							"name":"Scarlett Firework",
 							"filename":"npc/scarlett",
-							"hometown":"red"
+							"hometown":"red",
+							"hasTask":true,
+							"taskIntro":[
+								"Hey, are you the one who did Rosa's signs?",
+								"Those signs are looking beautiful, I was hoping you'd help me, too.",
+								"Can you help add some color to our walls?"
+							],
+							"tasks":[
+								"Let's color the front door brown.",
+								"The front wall of the store should be white",
+								"I think red would be good for the fences"
+							],
+							"positiveFeedback":"Great!",
+							"negativeFeedback":"Hm, not quite...but almost..."
 						};
 characters["vernon"] = {
 							"name":"Vernon Vermilion",
 							"filename":"npc/vernon",
-							"hometown":"red"
+							"hometown":"red",
+							"hasTask":false
 						};
 characters["redguard"] = {
 							"name":"Guard of the Red Gate",
 							"filename":"npc/redguard",
-							"hometown":"red"
+							"hometown":"red",
+							"hasTask":true,
+							"taskIntro":[
+								"I think there's still more for you to do here in Red Town."
+							],
+							"taskFinished":[
+								"Good luck on your journey, Joe. I hope we can meet again."
+							]
 						};
 characters["amber"] = {
 							"name":"Amber Dawn",
 							"filename":"npc/amber",
-							"hometown":"yellow"
+							"hometown":"yellow",
+							"hasTask":false
 						};
 characters["carrot"] = {
 							"name":"Charles 'Carrot' Rodriguez",
 							"filename":"npc/carrot",
-							"hometown":"yellow"
+							"hometown":"yellow",
+							"hasTask":false
 						};
 characters["ray"] = {
 						"name":"Ray Sunshine",
 						"filename":"npc/ray",
-						"hometown":"yellow"
+						"hometown":"yellow",
+						"hasTask":false
 					};
 characters["orangeguard"] = {
 								"name":"Guard of the Orange Gate",
 								"filename":"npc/orangeguard",
-								"hometown":"yellow"
+								"hometown":"yellow",
+								"hasTask":false
 							};
 
 //takes a character object and an array of lines
-function showDialog(character,lines){
-	currentLines = lines;
+function showDialog(character){
+	if(character.hasTask){
+		currentLines = character.taskIntro;
+	}
+	else{
+		if(character.taskFinished != undefined){
+			currentLines = character.taskFinished;
+		}
+		else{	
+			var rand = defaultLines[character.hometown][Math.floor(Math.random() * defaultLines.length)];
+			currentLines.push(rand);
+		}
+	}
 	isOnDialog = true;
-	$("#speech-panel-wrapper").fadeIn(400,function(){
+	$("#speech-panel-wrapper").fadeIn(300,function(){
 		var _speech = $("#speech-panel-wrapper");
 		
 		$("#speech-panel-wrapper").addClass(character.hometown);
@@ -66,12 +123,16 @@ function showDialog(character,lines){
 		$("#speech-panel-wrapper").find(".body .prev-button").hide();
 		if(currentLines.length < 2)
 			$("#speech-panel-wrapper").find(".body .next-button").hide();
+		else
+			$("#speech-panel-wrapper").find(".body .next-button").show();
 		
-		$("#speech-panel-wrapper").find(".panel").animate({"bottom":0},600);
+		$("#speech-panel-wrapper").find(".panel").animate({"bottom":0},400);
 	})
 }
 
 function closeDialog(){
+	currentLines = [];
+	currentIdx = 0;
 	$("#speech-panel-wrapper .panel").animate({"bottom":"-100%"},400,function(){
 		$("#speech-panel-wrapper").fadeOut();
 		isOnDialog = false;

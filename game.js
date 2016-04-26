@@ -72,35 +72,56 @@ function drawMap(){
 }
 
 $(document).keydown(function(e) {
-	if(isOnDialog) return;
 	var positionX = parseInt($("#player").css("left"));
 	var positionY = parseInt($("#player").css("top"));
 	var shouldAnimate = false;
 	if(e.keyCode==37) {
-		//only move if already facing that direction
-		if($("#player").hasClass("left")){
-			positionX-=tileSize;
-			shouldAnimate = true;
+		//if dialog is on, arrow keys control dialogs
+		if(isOnDialog){
+			prevLine();
 		}
-		$("#player").removeClass().addClass("left");
+		//else, it controls the player
+		else{
+			//only move if already facing that direction
+			if($("#player").hasClass("left")){
+				positionX-=tileSize;
+				shouldAnimate = true;
+			}
+			$("#player").removeClass().addClass("left");
+		}
 	} else if(e.keyCode == 39) {
-		if($("#player").hasClass("right")){
-			positionX+=tileSize;
-			shouldAnimate = true;
+		if(isOnDialog){
+			nextLine();
 		}
-		$("#player").removeClass().addClass("right");
+		else{
+			if($("#player").hasClass("right")){
+				positionX+=tileSize;
+				shouldAnimate = true;
+			}
+			$("#player").removeClass().addClass("right");
+		}
 	} else if(e.keyCode==38) {
-		if($("#player").hasClass("top")){
-			positionY-=tileSize;
-			shouldAnimate = true;
+		if(isOnDialog){
+			prevLine();
 		}
-		$("#player").removeClass().addClass("top");
+		else{
+			if($("#player").hasClass("top")){
+				positionY-=tileSize;
+				shouldAnimate = true;
+			}
+			$("#player").removeClass().addClass("top");
+		}
 	} else if(e.keyCode == 40) {
-		if($("#player").attr("class") == ""){
-			positionY+=tileSize;
-			shouldAnimate = true;
+		if(isOnDialog){
+			nextLine();
 		}
-		$("#player").removeClass();
+		else{
+			if($("#player").attr("class") == ""){
+				positionY+=tileSize;
+				shouldAnimate = true;
+			}
+			$("#player").removeClass();
+		}
 	}
 	//prevent keydown when still animating
 	if(!animating && shouldAnimate && isWalkable((positionY/tileSize),(positionX/tileSize))){
