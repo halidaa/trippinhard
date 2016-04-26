@@ -228,7 +228,7 @@ $(document).keydown(function(e) {
 	
 	if(!animating && shouldAnimate && isWalkable(pY,pX)){
 		animating = true;
-		$("#player").animate({"top":positionY+"px","left":positionX+"px"},150,function(){
+		$("#player").animate({"top":positionY+"px","left":positionX+"px"},750,function(){
 			animating = false;
 			
 			if(right && pX % (mapWidthTiles/tileSize) == 0) {
