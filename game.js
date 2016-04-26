@@ -361,7 +361,7 @@ $(document).ready(function(){
 		}
 		
 		//SCARLETT
-		if(!(scarlettCurrentTask >= scarlettClasses.length)) {
+		if(!(scarlettCurrentTask >= scarlettClasses.length) && (rosaCurrentTask >= rosaClasses.length)) {
 			if(answer == scarlettAnswers[scarlettCurrentTask]){
 				$('#scarlettImage').attr('src', scarlettClasses[scarlettCurrentTask] + '_DONE.png');
 				showTaskDialog(characters["scarlett"],characters["scarlett"].positiveFeedback);
@@ -372,7 +372,7 @@ $(document).ready(function(){
 					scarlettTask();
 				}, 2000);  
 			}
-			else {
+			else if((rosaCurrentTask >= rosaClasses.length)) {
 				showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback);
 				setTimeout(function(){
 					showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
