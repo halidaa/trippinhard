@@ -269,8 +269,32 @@ body{
 	height:100px;
 	position:absolute;
 }
-.redguard {
+.scarlett {
+	background:url(npc/scarlett-left.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.amber {
+	background:url(npc/amber-front.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.vernon {
+	background:url(npc/vernon-front.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.redguard-right {
 	background:url(npc/redguard-right.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.redguard-left {
+	background:url(npc/redguard-left.png);
 	width:100px;
 	height:100px;
 	position:absolute;
@@ -348,3 +372,15 @@ body{
 
 .rosa-tile {
 }
+
+.scarlett-tile {
+	
+}
+.vernon-tile {
+	
+}
+.amber-tile {
+	
+}
+.redguard-right-tile {}
+.redguard-left-tile {}
