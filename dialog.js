@@ -25,15 +25,14 @@ characters["rosa"] = {
 						"hometown":"red",
 						"hasTask":true,
 						"taskIntro":[
-							"We just can't compare against some of the fancy stores in other towns...they look so nice and shiny.",
-							"Do you think you can help us spruce up and add some color to our signs?"
+							"All of my trees are shades of red, I wish their <i>color</i> would change to something different!",
+							"Do you think you could help me change the <i>color</i> of these trees?"
 						],
 						"tasks":[
-							"Let's change the APPLES sign to red text.",
-							"Let's change the ORANGES sign to orange text.",
-							"Let's change the LEMONS sign to yellow text.",
-							"Let's change the LIMES sign to green text.",
-							"Let's change the BERRIES sign to blue text."
+							"Let's change tree-01 <i>color</i> to blue.",
+							"Let's change tree-02 <i>color</i> to green.",
+							"Let's change tree-03 <i>color</i> to yellow.",
+							"Let's change tree-04 <i>color</i> to purple."
 						],
 						"positiveFeedback":"Great!",
 						"negativeFeedback":"Hm, not quite...but almost..."

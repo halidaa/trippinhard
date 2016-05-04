@@ -384,3 +384,149 @@ body{
 }
 .redguard-right-tile {}
 .redguard-left-tile {}
+
+/**** TREES ****/
+.t1r-tile {} 
+.t2r-tile {} 
+.t3r-tile {} 
+.t4r-tile {} 
+.tree-01-red {
+	background:url(trees/tree-01-red.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-02-red {
+	background:url(trees/tree-02-red.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-03-red {
+	background:url(trees/tree-03-red.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-04-red {
+	background:url(trees/tree-04-red.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+
+.t1b-tile {} 
+.t2b-tile {} 
+.t3b-tile {} 
+.t4b-tile {} 
+.tree-01-blue {
+	background:url(trees/tree-01-blue.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-02-blue {
+	background:url(trees/tree-02-blue.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-03-blue {
+	background:url(trees/tree-03-blue.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-04-blue {
+	background:url(trees/tree-04-blue.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+
+.t1g-tile {} 
+.t2g-tile {} 
+.t3g-tile {} 
+.t4g-tile {} 
+.tree-01-green {
+	background:url(trees/tree-01-green.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-02-green {
+	background:url(trees/tree-02-green.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-03-green {
+	background:url(trees/tree-03-green.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-04-green {
+	background:url(trees/tree-04-green.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+
+.t1y-tile {} 
+.t2y-tile {} 
+.t3y-tile {} 
+.t4y-tile {} 
+.tree-01-yellow {
+	background:url(trees/tree-01-yellow.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-02-yellow {
+	background:url(trees/tree-02-yellow.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-03-yellow {
+	background:url(trees/tree-03-yellow.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-04-yellow {
+	background:url(trees/tree-04-yellow.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+
+.t1p-tile {} 
+.t2p-tile {} 
+.t3p-tile {} 
+.t4p-tile {} 
+.tree-01-purple {
+	background:url(trees/tree-01-purple.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-02-purple {
+	background:url(trees/tree-02-purple.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-03-purple {
+	background:url(trees/tree-03-purple.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.tree-04-purple {
+	background:url(trees/tree-04-purple.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}

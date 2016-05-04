@@ -2,8 +2,8 @@ var tileSize = 100;
 var map = [	[0,0,0,0,0,0,0,0,0,0,  1,1,1,0,0,0,0,0,0,0],
 			[0,2,0,3,0,0,3,0,0,0,  0,1,0,0,0,0,0,0,0,0],
 			[0,1,1,1,1,1,1,1,1,1,  0,1,1,1,1,1,1,1,1,1],
-			[0,1,0,"rosa",0,2,0,2,0,1,  0,1,0,0,0,0,0,0,0,0],
-			[0,1,1,"t",1,1,1,1,1,1,  0,1,0,0,0,0,0,0,0,0],
+			[0,1,0,0,"rosa","t1r","t2r","t3r","t4r",1,  0,1,0,0,0,0,0,0,0,0],
+			[0,1,1,1,"t",1,1,1,1,1,  0,1,0,0,0,0,0,0,0,0],
 			["redguard-right","t","redguard-left",0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0], 
 			
 			[0,1,0,0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0],
@@ -20,7 +20,7 @@ var map = [	[0,0,0,0,0,0,0,0,0,0,  1,1,1,0,0,0,0,0,0,0],
 			[0,1,0,0,0,0,0,0,0,0,  0,0,0,0,1,0,0,0,0,0],
 			[0,0,0,0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0]
 		  ];
-		  
+		 
 var floatValue = 10;
 var flyValue = 85;
 var animating = false;
@@ -33,8 +33,8 @@ var timer;
 var isInTask = false;
 
 //Needed for Rosa's tasks
-var rosaClasses = ["APPLES", "ORANGES", "LEMONS", "LIMES", "BERRIES"];
-var rosaAnswers = ["red", "orange", "yellow", "green", "blue"];
+var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
+var rosaAnswers = ["blue", "green", "yellow", "purple"];
 var rosaCurrentTask = 0;
 
 //Needed for Scarlett's tasks
@@ -53,23 +53,8 @@ function getTileClass(y,x){
 	else if(map[y][x] == 3){ //buildings
 		tileClass += "blank building-tile";
 	}
-	else if(map[y][x] == "rosa"){ //rosa
-		tileClass += "blank rosa-tile";
-	}
-	else if(map[y][x] == "scarlett") { //scarlett
-		tileClass += "blank scarlett-tile";
-	}
-	else if(map[y][x] == "vernon") { //vernon
-		tileClass += "blank vernon-tile";
-	}
-	else if(map[y][x] == "amber") { //amber
-		tileClass += "blank amber-tile";
-	}
-	else if(map[y][x] == "redguard-right"){ //redguard-right
-		tileClass += "blank redguard-right-tile";
-	}
-	else if(map[y][x] == "redguard-left"){ //redguard-left
-		tileClass += "blank redguard-left-tile";
+	else if(typeof map[y][x] === 'string' && map[y][x] != "t") {
+			tileClass += "blank " + map[y][x] + "-tile";
 	}
 	else{
 		if(map[y][x+1] != undefined && (map[y][x+1] ==1 || map[y][x+1] == "t")){
@@ -138,6 +123,13 @@ function drawMap(yCoord,xCoord){
 	$('.amber-tile').append('<div class="amber"></div>');
 	$('.redguard-right-tile').append('<div class="redguard-right"></div>');
 	$('.redguard-left-tile').append('<div class="redguard-left"></div>');
+	
+	//Red Trees
+	$('.t1r-tile').append('<div class="tree-01-red"></div>');
+	$('.t2r-tile').append('<div class="tree-02-red"></div>');
+	$('.t3r-tile').append('<div class="tree-03-red"></div>');
+	$('.t4r-tile').append('<div class="tree-04-red"></div>');
+
 }
 
 function talk(pY, pX) {
@@ -163,18 +155,24 @@ function rosaTask() {
 		clearTimeout(timer);
 	
 	if(rosaCurrentTask >= rosaClasses.length) {
-		//$('#map').show();
+
 		characters["rosa"].hasTask = false;
 		closeDialog();
 		$('#task').hide();
 		isInTask = false;
+		
+		$('.t1r-tile').html('').append('<div class="tree-01-blue"></div>');
+		$('.t2r-tile').html('').append('<div class="tree-02-green"></div>');
+		$('.t3r-tile').html('').append('<div class="tree-03-yellow"></div>');
+		$('.t4r-tile').html('').append('<div class="tree-04-purple"></div>');
+		
 		return;
 	}
-	//$('#map').hide();
+
 	showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
 	$('#task').show();
-	$('#task').append('<img id="rosaImage" src="' + rosaClasses[rosaCurrentTask] + '.png" />');
-	$('.content').html('.' + rosaClasses[rosaCurrentTask] + ' { <br />&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
+	$('#task').append('<img id="rosaImage" src="trees/' + rosaClasses[rosaCurrentTask] + '.png" height="400" width="400" />');
+	$('.content').html('.' + rosaClasses[rosaCurrentTask].replace('-red','') + ' { <br />&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
 	$('#answer').focus();
 	
 	$('#answer').on('keyup', function(e) {
@@ -342,7 +340,7 @@ $(document).ready(function(){
 		//ROSA
 		if(!(rosaCurrentTask >= rosaClasses.length)) {
 			if(answer == rosaAnswers[rosaCurrentTask]){
-				$('#rosaImage').attr('src', rosaClasses[rosaCurrentTask] + '_DONE.png');
+				$('#rosaImage').attr('src', 'trees/' + rosaClasses[rosaCurrentTask].replace('red', rosaAnswers[rosaCurrentTask]) + '.png');
 				showTaskDialog(characters["rosa"],characters["rosa"].positiveFeedback);
 				timer = setTimeout(function(){ 
 					//TODO: Dialog
