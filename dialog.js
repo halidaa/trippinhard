@@ -29,8 +29,8 @@ characters["rosa"] = {
 							"Do you think you could help me change the <i>color</i> of these trees?"
 						],
 						"tasks":[
-							"Let's change tree-01 <i>color</i> to blue.",
-							"Let's change tree-02 <i>color</i> to green.",
+							"Let's change tree-01 <i>color</i> to green.",
+							"Let's change tree-02 <i>color</i> to blue.",
 							"Let's change tree-03 <i>color</i> to yellow.",
 							"Let's change tree-04 <i>color</i> to purple."
 						],
@@ -43,14 +43,20 @@ characters["scarlett"] = {
 							"hometown":"red",
 							"hasTask":true,
 							"taskIntro":[
-								"Hey, are you the one who did Rosa's signs?",
-								"Those signs are looking beautiful, I was hoping you'd help me, too.",
-								"Can you help add some color to our walls?"
+								"Hey, are you the one who did Rosa's trees?",
+								"Those trees are looking beautiful, I was hoping you'd help me too!",
+								"Can you help me paint these houses back to their original <i>background-color</i>?"
 							],
 							"tasks":[
-								"Let's color the front door brown.",
-								"The front wall of the store should be white",
-								"I think red would be good for the fences"
+								"Let's paint this purple-wall red again.",
+								"Let's paint this blue-wall green again.",
+								"Let's paint this yellow-wall blue again.",
+								"Let's paint this green-wall yellow again.",
+								"Let's paint this red-wall purple again.",
+							],
+							"hasRequirement": !rosaDone,
+							"requirement": [
+								"I think you should help Rosa up above before assisting me."
 							],
 							"positiveFeedback":"Great!",
 							"negativeFeedback":"Hm, not quite...but almost..."
@@ -113,12 +119,19 @@ characters["orangeguard"] = {
 //Can remove this optional text param, was just trying to get it to read the text and positive feedbakc
 function showDialog(character){
 	characterName = character.name;
-	if(character.hasTask){
+	
+	var requirementPassed = true;
+	if(characterName == "Scarlett Firework") requirementPassed = rosaDone;
+	
+	if(character.hasTask && requirementPassed){
 		currentLines = character.taskIntro;
 	}
 	else{
 		if(character.taskFinished != undefined){
 			currentLines = character.taskFinished;
+		}
+		else if(character.hasRequirement && !requirementPassed) {
+			currentLines = character.requirement;
 		}
 		else{	
 			var rand = defaultLines[character.hometown][Math.floor(Math.random() * defaultLines.length)];
@@ -154,12 +167,15 @@ function showTaskDialog(character, line){
 }
 
 function closeDialog(){
-	currentLines = [];
-	currentIdx = 0;
-	$("#speech-panel-wrapper .panel").animate({"bottom":"-100%"},400,function(){
-		$("#speech-panel-wrapper").fadeOut();
-		isOnDialog = false;
-	})
+	//Made it so if they're in a class and click on the screen, it doesn't close the dialog
+	if(!isInTask) {
+		currentLines = [];
+		currentIdx = 0;
+		$("#speech-panel-wrapper .panel").animate({"bottom":"-100%"},400,function(){
+			$("#speech-panel-wrapper").fadeOut();
+			isOnDialog = false;
+		})
+	}
 }
 
 function nextLine(){
