@@ -745,7 +745,9 @@ body{
 /******************** END WATER ********************/
 
 /******************** BRIDGE ********************/
-.b-tile {} 
+.b-tile { 
+	background-image:url(water/water-tiles-01.png)!important; 
+} 
 .bw-tile {}
 .bridge-50 {
 	background:url(bridge/bridge-50.png);
