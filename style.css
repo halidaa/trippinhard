@@ -385,7 +385,7 @@ body{
 .redguard-right-tile {}
 .redguard-left-tile {}
 
-/**** TREES ****/
+/********************  TREES ********************/
 .t1r-tile {} 
 .t2r-tile {} 
 .t3r-tile {} 
@@ -530,3 +530,116 @@ body{
 	height:100px;
 	position:absolute;
 }
+/********************  END TREES ********************/
+
+/******************** HOUSES ********************/
+.h1r-tile {} 
+.h2r-tile {} 
+.h3r-tile {} 
+.house-01-red {
+	background:url(houses/house-01-red.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.house-02-red {
+	background:url(houses/house-02-red.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.house-03-red {
+	background:url(houses/house-03-red.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+
+.h1b-tile {} 
+.h2b-tile {} 
+.h3b-tile {} 
+.house-01-blue {
+	background:url(houses/house-01-blue.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.house-02-blue {
+	background:url(houses/house-02-blue.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.house-03-blue {
+	background:url(houses/house-03-blue.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+
+.h1g-tile {} 
+.h2g-tile {} 
+.h3g-tile {} 
+.house-01-green {
+	background:url(houses/house-01-green.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.house-02-green {
+	background:url(houses/house-02-green.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.house-03-green {
+	background:url(houses/house-03-green.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+
+.h1y-tile {} 
+.h2y-tile {} 
+.h3y-tile {} 
+.house-01-yellow {
+	background:url(houses/house-01-yellow.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.house-02-yellow {
+	background:url(houses/house-02-yellow.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.house-03-yellow {
+	background:url(houses/house-03-yellow.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+
+.h1p-tile {} 
+.h2p-tile {} 
+.h3p-tile {} 
+.house-01-purple {
+	background:url(houses/house-01-purple.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.house-02-purple {
+	background:url(houses/house-02-purple.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.house-03-purple {
+	background:url(houses/house-03-purple.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+/********************  END HOUSES ********************/

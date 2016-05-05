@@ -1,6 +1,6 @@
 var tileSize = 100;
-var map = [	[0,0,0,0,0,0,0,0,0,0,  1,1,1,0,0,0,0,0,0,0],
-			[0,2,0,3,0,0,3,0,0,0,  0,1,0,0,0,0,0,0,0,0],
+var map = [	[0,0,"h1p",0,"h2r",0,"h3y","t2y","t1g","t4p",  1,1,1,0,0,0,0,0,0,0],
+			[0,"h2y",0,"h3g",0,"h1b",0,"t1p","t3b","t1y",  0,1,0,0,0,0,0,0,0,0],
 			[0,1,1,1,1,1,1,1,1,1,  0,1,1,1,1,1,1,1,1,1],
 			[0,1,0,0,"rosa","t1r","t2r","t3r","t4r",1,  0,1,0,0,0,0,0,0,0,0],
 			[0,1,1,1,"t",1,1,1,1,1,  0,1,0,0,0,0,0,0,0,0],
@@ -124,12 +124,17 @@ function drawMap(yCoord,xCoord){
 	$('.redguard-right-tile').append('<div class="redguard-right"></div>');
 	$('.redguard-left-tile').append('<div class="redguard-left"></div>');
 	
-	//Red Trees
-	$('.t1r-tile').append('<div class="tree-01-red"></div>');
-	$('.t2r-tile').append('<div class="tree-02-red"></div>');
-	$('.t3r-tile').append('<div class="tree-03-red"></div>');
-	$('.t4r-tile').append('<div class="tree-04-red"></div>');
-
+	var  colors = ["red", "blue", "green", "yellow", "purple"];
+	for(var i = 0; i < colors.length; i++) {
+		//Trees
+		for(var t = 1; t < 5; t++) {
+			$('.t' + t + colors[i][0] + '-tile').append('<div class="tree-0' + t + '-' + colors[i] + '"></div>');
+		}
+		//Houses
+		for(var h = 1; h < 4; h++) {
+			$('.h' + h + colors[i][0] + '-tile').append('<div class="house-0' + h + '-' + colors[i] + '"></div>');
+		}
+	}
 }
 
 function talk(pY, pX) {
