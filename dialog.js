@@ -244,7 +244,7 @@ function closeDialog(){
 		currentLines = [];
 		currentIdx = 0;
 		$("#speech-panel-wrapper .panel").animate({"bottom":"-100%"},400,function(){
-			$("#speech-panel-wrapper").fadeOut();
+			$("#speech-panel-wrapper").removeClass().fadeOut();
 			isOnDialog = false;
 		})
 	}
