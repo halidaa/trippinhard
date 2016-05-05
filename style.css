@@ -4,6 +4,44 @@ body{
 	padding:10px 0;
 	text-align:center;
 }
+#main-title{
+	font-size:2em;
+	padding:50px;
+}
+#main-title h1{
+	color:#37BC9B;
+	font-family:"Chelsea Market",Roboto,sans-serif;
+	font-size:4em;
+	text-transform:uppercase;
+	margin-bottom:0;
+	vertical-align:bottom;
+}
+#main-title .start-button{
+	padding:20px 100px;
+	background-color:#37BC9B;
+	color:white;
+	text-decoration:none;
+	text-transform:uppercase;
+	font-size:.75em;
+}
+#main-title span{
+	transition:all .5s;
+}
+#main-title .red{
+	color:#DA4453;
+}
+#main-title .green{
+	color:#8cc152;
+}
+#main-title .blue{
+	color:#3bafda;
+}
+#main-title .yellow{
+	color:#ffce54;
+}
+#main-title .purple{
+	color:#967ADC;
+}
 #player{
 	background:url(player-front.png);
 	position:absolute;
@@ -305,13 +343,24 @@ body{
 	clear:both;
 }
 .tile{
-	background:#A0D468 url(tiles_100.png);
 	float:left;
 	width:100px;
 	height:100px;
 }
-.tile.blank{
-	background:#A0D468 url(texture.png);
+.red .tile{
+	background:#A0D468 url(tiles_red.png);
+}
+.red .tile.blank{
+	background:#A0D468 url(texture_red.png);
+}
+.yellow .tile{
+	background:#f9d375 url(tiles_yellow.png);
+}
+.yellow .tile.blank{
+	background:#f9d375 url(texture_yellow.png);
+}
+.tile.water{
+	
 }
 .tile.left-top-bottom-open{
 	background-position-x:-100px;
