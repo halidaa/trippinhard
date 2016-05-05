@@ -328,6 +328,18 @@ body{
 	height:100px;
 	position:absolute;
 }
+.tiny-carrot {
+	background:url(npc/tiny-carrot-front.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.carrot {
+	background:url(npc/carrot-front.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
 .redguard-right {
 	background:url(npc/redguard-right.png);
 	width:100px;
@@ -432,6 +444,12 @@ body{
 	
 }
 .amber-tile {
+	
+}
+.carrot-tile {
+	
+}
+.tiny-carrot-tile {
 	
 }
 .redguard-right-tile {}
@@ -704,6 +722,14 @@ body{
 	height:100px;
 	position:absolute;
 }
+
+.g2-tile {} 
+.gate-lv2 {
+	background:url(gates/gate-lv2.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
 /******************** END GATES ********************/
 
 /********************  WATER ********************/
@@ -763,3 +789,21 @@ body{
 	z-index: 4;
 }
 /******************** END BRIDGE ********************/
+
+/******************** THE BURNANATOR ******************/
+.d1-tile {} 
+.d1 {
+	background:url(trogdor100.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+
+.d2-tile {} 
+.d2 {
+	background:url(trogdor200.png);
+	width:200px;
+	height:200px;
+	position:absolute;
+}
+/******************** END BURNANATOR ******************/

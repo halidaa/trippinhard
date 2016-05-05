@@ -107,17 +107,41 @@ characters["amber"] = {
 						"negativeFeedback":"Hm, not quite...but almost..."
 					};
 characters["carrot"] = {
-							"name":"Charles 'Carrot' Rodriguez",
-							"filename":"npc/carrot",
-							"hometown":"yellow",
-							"hasTask":false
-						};
+						"name":"Charles 'Carrot' Rodriguez",
+						"filename":"npc/carrot",
+						"hometown":"yellow",
+						"hasTask":true,
+						"taskIntro":[
+							"Hey, I saw what you did to that bridge, it was incredible!",
+							"Do you think you think you could help me out with my <i>height</i>?"
+						],
+						"tasks":[
+							"Could you make me four times taller!",
+						],
+						"positiveFeedback":"Great!",
+						"negativeFeedback":"Hm, not quite...but almost..."
+					};
 characters["ray"] = {
 						"name":"Ray Sunshine",
 						"filename":"npc/ray",
 						"hometown":"yellow",
 						"hasTask":false
 					};
+characters["dragon"] = {
+						"name":"Trogdor",
+						"filename":"npc/dragon",
+						"hometown":"yellow",
+						"hasTask":true,
+						"taskIntro":[
+							"STOP! You cannot escape past me!",
+							"At my current <i>width</i> and <i>height</i> you'll be not match for me!"
+						],
+						"tasks":[
+							"TODO",
+						],
+						"positiveFeedback":"Noooooooooooooo",
+						"negativeFeedback":"Ha, ha, ha that won't work on me!"
+					};					
 characters["orangeguard"] = {
 								"name":"Guard of the Orange Gate",
 								"filename":"npc/orangeguard",
