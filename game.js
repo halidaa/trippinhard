@@ -487,6 +487,9 @@ function startTask() {
 			break;
 		case "Guard of the Red Gate":
 			break;
+		case "Schme Schmo":
+			closeDialog();
+			break;
 	}
 }
 
@@ -951,4 +954,7 @@ $(document).ready(function(){
 	
 	//make the companion fly around
 	animateCompanion();
+	
+	//show schmo's intro
+	showDialog(characters["schmo"]);
 })
