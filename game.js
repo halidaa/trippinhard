@@ -87,6 +87,22 @@ function getTileClass(y,x){
 	return tileClass;
 }
 
+function typeWrite(target) {
+  var textHolder = target.text();
+  target.text("");
+  var toWrite = "";
+  var index = 0;
+  var interval = setInterval(function() {
+    if (index == textHolder.length) {
+      interval.clear();
+    } else {
+      toWrite += textHolder[index];
+      index++;
+      target.text(toWrite);
+    }
+  }, 100)
+}
+
 function isWalkable(y,x){
 	if(y < 0 || y > map.length) return false;
 	else if (x < 0 || x > map[0].length) return false;
@@ -272,7 +288,7 @@ function amberTask() {
 	}
 	showTaskDialog(characters["amber"],characters["amber"].tasks[amberCurrentTask]);
 	$('#task').show();
-	$('#task').append('<img id="amberImage" src="bridge/' + amberClasses[amberCurrentTask] + '-50.png" height="400" width="400" />');
+	$('#task').append('<img id="amberImage" src="bridge/task-' + amberClasses[amberCurrentTask] + '-50.png" height="400" width="400" />');
 	$('.content').html('.' + amberClasses[amberCurrentTask] + ' { <br />width:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
 	$('#answer').focus();
 	
@@ -477,7 +493,7 @@ $(document).ready(function(){
 		//AMBER
 		if(rosaDone && scarlettDone) {
 			if(answer == amberAnswers[amberCurrentTask]){
-				$('#amberImage').attr('src', 'bridge/' + amberClasses[amberCurrentTask] + '-100.png');
+				$('#amberImage').attr('src', 'bridge/task-' + amberClasses[amberCurrentTask] + '-100.png');
 				showTaskDialog(characters["amber"],characters["amber"].positiveFeedback);
 				timer = setTimeout(function(){ 
 					amberCurrentTask++;
