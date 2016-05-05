@@ -254,10 +254,10 @@ function rosaTask() {
 		$('.t2r-tile').html('').append('<div class="tree-02-blue"></div>');
 		$('.t3r-tile').html('').append('<div class="tree-03-yellow"></div>');
 		$('.t4r-tile').html('').append('<div class="tree-04-purple"></div>');
-		map[3][5] = "t1g";
-		map[3][6] = "t2b";
-		map[3][7] = "t3y";
-		map[3][8] = "t4p";
+		map[3][9] = "t1g";
+		map[2][8] = "t2b";
+		map[3][8] = "t3y";
+		map[2][7] = "t4p";
 		rosaDone = true;
 
 		$(".content").html("Try talking to people!");
