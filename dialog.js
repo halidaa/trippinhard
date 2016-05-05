@@ -72,7 +72,8 @@ characters["scarlett"] = {
 								"Don't forget to add a ':' between the property name and property value!",
 								"Looks like you didn't include the correct background-color I want.",
 								"Don't forget to add a ';' after your property value.",
-								"Hmmm, try formatting it like 'background-color: your_color'."]
+								"Hmmm, try formatting it like 'background-color: your_color'."
+							]
 						};
 characters["vernon"] = {
 							"name":"Vernon Vermilion",
@@ -114,10 +115,21 @@ characters["amber"] = {
 							"Do you think you think you could somehow double the bridge's <i>width</i>?"
 						],
 						"tasks":[
-							"Double the width of the bridge!",
+							"The <i>width</i> of the <b>bridge</b> is currently 100%, can you double it so we can cross?",
 						],
 						"positiveFeedback":"Great!",
-						"negativeFeedback":"Hm, not quite...but almost..."
+						"negativeFeedback":[
+								"Looks like you forgot to put a '.' before the class name.",
+								"Don't forget to include the class name that I'm stating in bold!",
+								"Ooo, can't forget to include the '{' after the class name.",
+								"Don't forget to include <i>width</i>.",
+								"Don't forget to add a ':' between the property name and property value!",
+								"Looks like you didn't make the bridge double it's current 100% width.",
+								"Don't forget to include a '%' following your width's value.",
+								"Don't forget to add a ';' after your property value.",
+								"Ooo, can't forget to include the '}' at the end!",
+								"Hmmm, try formatting it like 'width: your_width%'."
+							]
 					};
 characters["carrot"] = {
 						"name":"Charles 'Carrot' Rodriguez",

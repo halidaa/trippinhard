@@ -46,13 +46,13 @@ var walkableTiles = ["t", "l2", "bw", "dragon", "g2"];
 var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
 var rosaAnswers = ["green", "blue", "yellow", "purple"];
 var rosaCurrentTask = 0;
-var rosaDone = false;
+var rosaDone = true;
 
 //Needed for Scarlett's tasks
 var scarlettClasses = ["purple-wall", "blue-wall", "yellow-wall", "green-wall", "red-wall"];
 var scarlettAnswers = ["red", "green", "blue", "yellow", "purple"];
 var scarlettCurrentTask = 0;
-var scarlettDone = false;
+var scarlettDone = true;
 
 //Needed for Amber's task
 var amberClasses = ["bridge"];
@@ -320,15 +320,16 @@ function scarlettTask() {
 		$('.content').html('.'+ scarlettClasses[scarlettCurrentTask] +' { <br />' +
 							   '<input type="text" class="scarlettTaskAnswers" id="answer" name="partTwo" placeholder="background-color:&nbsp;_____;"> <br />' +
 						   '}');
+		$('#answer').focus();
 	}
 	else {
-		$('.content').html('<input type="text" class="scarlettTaskAnswers" id="partOne" name="partTwo" placeholder=".'+ scarlettClasses[scarlettCurrentTask] +'"> { <br />' +
+		$('.content').html('<input type="text" class="scarlettTaskAnswers" id="partOne" name="partOne" placeholder=".'+ scarlettClasses[scarlettCurrentTask] +'"> { <br />' +
 						   '<input type="text" class="scarlettTaskAnswers" id="partTwo" name="partTwo" placeholder="background-color:&nbsp;_____;"> <br />' +
 					   '}');
+	    $('#partOne').focus();
 	}
 	//'.' + scarlettClasses[scarlettCurrentTask] + ' { <br />background-color:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
 	
-	$('#answer').focus();
 	
 	$('.scarlettTaskAnswers').on('keyup', function(e) {
 		if(!$(this).html())
@@ -360,10 +361,13 @@ function amberTask() {
 	showTaskDialog(characters["amber"],characters["amber"].tasks[amberCurrentTask]);
 	$('#task').show();
 	$('#task').append('<img id="amberImage" src="bridge/task-' + amberClasses[amberCurrentTask] + '-50.png" height="400" width="400" />');
-	$('.content').html('.' + amberClasses[amberCurrentTask] + ' { <br />width:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
-	$('#answer').focus();
 	
-	$('#answer').on('keyup', function(e) {
+	$('.content').html('<input type="text" class="amberTaskAnswers" id="partOne" name="partOne" placeholder=".'+ amberClasses[amberCurrentTask] +' {"><br />' +
+					   '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="amberTaskAnswers" id="partTwo" name="partTwo" placeholder="width:&nbsp;_____;"> <br />' +
+					   '<input type="text" class="amberTaskAnswers" id="partThree" name="partThree" placeholder="}">');
+	$('#partOne').focus();
+	
+	$('.amberTaskAnswers').on('keyup', function(e) {
 		if(!$(this).html())
 			$(this).html('&nbsp;');
 		if (e.keyCode == 13) {
@@ -745,22 +749,75 @@ $(document).ready(function(){
 		
 		//AMBER
 		if(rosaDone && scarlettDone) {
-			var answer = $('#answer').html().replace('&nbsp;', '').replace('<br>', '').trim();
-			if(answer == amberAnswers[amberCurrentTask]){
-				$('#amberImage').attr('src', 'bridge/task-' + amberClasses[amberCurrentTask] + '-100.png');
-				showTaskDialog(characters["amber"],characters["amber"].positiveFeedback);
-				timer = setTimeout(function(){ 
-					amberCurrentTask++;
-					$('#task').html('');
-					amberTask();
-				}, 2000);  
+			var answer;
+			var partOne = $('#partOne').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+			var partTwo = $('#partTwo').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+			var partThree = $('#partThree').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+			
+			if(partOne == ('.' + amberClasses[amberCurrentTask] + '{')) {
+				if(partTwo == ('width:'+amberAnswers[amberCurrentTask]+';')){
+					if(partThree == '}') {
+						$('#amberImage').attr('src', 'bridge/task-' + amberClasses[amberCurrentTask] + '-100.png');
+						showTaskDialog(characters["amber"],characters["amber"].positiveFeedback);
+						timer = setTimeout(function(){ 
+							//TODO: Dialog
+							amberCurrentTask++;
+							$('#task').html('');
+							amberTask();
+						}, 3000);  
+					}
+					else {
+						if(partThree.indexOf('}') == -1){
+							showTaskDialog(characters["amber"],characters["amber"].negativeFeedback[8]); //forgot '}'
+						} else {
+							showTaskDialog(characters["amber"],characters["amber"].negativeFeedback[9]); //catch all
+						}
+						setTimeout(function(){
+							showTaskDialog(characters["amber"],characters["amber"].tasks[amberCurrentTask]);
+							$('#partThree').text("");
+							$('#partThree').focus();
+						}, 3000);
+					}
+				}
+				else {
+					if(partTwo.indexOf('width') == -1){
+						showTaskDialog(characters["amber"],characters["amber"].negativeFeedback[3]); //forgot 'width'
+					}else if (partTwo.indexOf(':') == -1){
+						showTaskDialog(characters["amber"],characters["amber"].negativeFeedback[4]); //forgot ':'
+					}
+					else if (partTwo.indexOf(amberAnswers[amberCurrentTask].replace('%','')) == -1){
+						showTaskDialog(characters["amber"],characters["amber"].negativeFeedback[5]); //forgot the correct width
+					}
+					else if (partTwo.indexOf(amberAnswers[amberCurrentTask]) == -1){
+						showTaskDialog(characters["amber"],characters["amber"].negativeFeedback[6]); //forgot the correct width
+					}
+					else if (partTwo.indexOf(';') == -1){
+						showTaskDialog(characters["amber"],characters["amber"].negativeFeedback[7]); //forgot ';'
+					}
+					else {
+						showTaskDialog(characters["amber"],characters["amber"].negativeFeedback[9]); //catch all
+					}
+					setTimeout(function(){
+						showTaskDialog(characters["amber"],characters["amber"].tasks[amberCurrentTask]);
+						$('#partTwo').text("");
+						$('#partTwo').focus();
+					}, 3000);
+				}
 			}
 			else {
-				showTaskDialog(characters["amber"],characters["amber"].negativeFeedback);
+				if(partOne.indexOf('.') == -1) { //forgot the .
+					showTaskDialog(characters["amber"],characters["amber"].negativeFeedback[0]); //forgot '.'
+				}else if (partOne.indexOf(amberClasses[amberCurrentTask]) == -1){
+					showTaskDialog(characters["amber"],characters["amber"].negativeFeedback[1]); //forgot class name
+				}
+				else if (partOne.indexOf('{') == -1){
+					showTaskDialog(characters["amber"],characters["amber"].negativeFeedback[2]); //forgot '{'
+				}
 				setTimeout(function(){
-					showTaskDialog(characters["amber"],characters["amber"].tasks[amberCurrentTask]);
-					$('#answer').focus();
-				}, 2000)
+						showTaskDialog(characters["amber"],characters["amber"].tasks[amberCurrentTask]);
+						$('#partOne').text("");
+						$('#partOne').focus();
+					}, 3000);
 			}
 		}
 		
@@ -814,7 +871,7 @@ $(document).ready(function(){
 	
 	//change it to drawMap(0,0) to start from the actual start!
 	//draw the board
-	offsetX = 0;//2000;
+	offsetX = 1000;//2000;
 	offsetY = 0;
 	drawMap(offsetY/tileSize, offsetX/tileSize);
 	//drawMap(0,0);
