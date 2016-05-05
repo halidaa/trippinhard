@@ -40,7 +40,7 @@ var mapHeightTiles = 6 * tileSize;
 var npcs = ["rosa", "amber", "redguard-left", "redguard-right", "orangeguard", "ray", "carrot", "scarlett", "vernon", "dragon"];
 var timer;
 var isInTask = false;
-var walkableTiles = ["t", "l2", "bw", "dragon", "g2", "g1"];
+var walkableTiles = ["t", "l2", "bw", "dragon", "g2"];
 
 //Needed for Rosa's tasks
 var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
