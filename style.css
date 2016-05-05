@@ -49,6 +49,8 @@ body{
 	height:100px;
 	margin:-2px;
 	z-index: 5;
+	transition:top .5s,left .5s;
+    transition-timing-function: linear;
 }
 #player .companion{
 	height:20px;
@@ -168,7 +170,7 @@ body{
 	background:#A0D468 url(texture_red.png);
 }
 .yellow #speech-panel-wrapper.in-task{
-	background:#f9d375 url(texture_yellow.png);
+	background:#eeda75 url(texture_yellow.png);
 }
 #speech-panel-wrapper.in-task .body .speech{
 	height:45px;
@@ -369,10 +371,10 @@ body{
 	background:#A0D468 url(texture_red.png);
 }
 .yellow .tile{
-	background:#f9d375 url(tiles_yellow.png);
+	background:#ddda75 url(tiles_yellow.png);
 }
 .yellow .tile.blank{
-	background:#f9d375 url(texture_yellow.png);
+	background:#ddda75 url(texture_yellow.png);
 }
 .tile.water{
 	/* background:url(water/water-tiles-02.png); */

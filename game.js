@@ -23,7 +23,7 @@ var map = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  			1,1,1,0,0,0,0,0,0,
 		 
 var floatValue = 10;
 var flyValue = 85;
-var animating = false;
+//var animating = false;
 var offsetY = 0;
 var offsetX = 0;
 var mapWidthTiles = 10 * tileSize;
@@ -191,6 +191,9 @@ function drawMap(yCoord,xCoord){
 			$('.h' + h + assetColors[i][0] + '-tile').append('<div class="house-0' + h + '-' + assetColors[i] + '"></div>');
 		}
 	}
+
+	if($("#player").length < 1)
+		$("#map").append("<div id='player'><div class='companion'></div></div>")
 }
 
 //Totally using this for things that aren't just talking to NPCs
@@ -389,7 +392,7 @@ function dragonTask() {
 	}
 	showTaskDialog(characters["dragon"],characters["dragon"].tasks[dragonCurrentTask]);
 	$('#task').show();
-	$('#task').append('<img id="dragonImage" src="trogdor200.png" height="400" width="400" />');
+	$('#task').append('<img id="dragonImage" src="task-trogdor.png" height="400" width="400" />');
 	$('.content').html('.' + dragonClasses[dragonCurrentTask] + ' { <br />' + 
 																	'width:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />' + 
 																	'height:&nbsp;<span id="answer2" contenteditable="true"> </span>;<br />' + 
@@ -512,14 +515,15 @@ $(document).keydown(function(e) {
 	}
 	
 	//prevent keydown when still animating
-	if(!animating && shouldAnimate && isWalkable(pY,pX)){
-		animating = true;
-		$("#player").animate({"top":positionY+"px","left":positionX+"px"},400,"linear",function(){
-			animating = false;
+	if(shouldAnimate && isWalkable(pY,pX)){
+		//animating = true;
+		//$("#player").stop().animate({"top":positionY+"px","left":positionX+"px"},400,"linear",function(){
+			$("#player").css({"top":positionY+"px","left":positionX+"px"})
 			
 			if(right && pX % (mapWidthTiles/tileSize) == 0) {
 				offsetX += mapWidthTiles;
 				$('#map').children('.row').remove();
+				$('#player').remove();
 				drawMap(offsetY/tileSize, offsetX/tileSize);
 				$("#player").css({"top":positionY+"px","left":"0px"});
 				positionX = 0;
@@ -527,6 +531,7 @@ $(document).keydown(function(e) {
 			if(left && (pX+1) % (mapWidthTiles/tileSize) == 0) {
 				offsetX -= mapWidthTiles;
 				$('#map').children('.row').remove();
+				$("#player").remove();
 				drawMap(offsetY/tileSize, offsetX/tileSize);
 				var leftOffset = mapWidthTiles - tileSize;
 				$("#player").css({"top":positionY+"px","left":leftOffset+"px"});
@@ -536,6 +541,7 @@ $(document).keydown(function(e) {
 			if(down && pY % (mapHeightTiles/tileSize) == 0) {
 				offsetY += mapHeightTiles;
 				$('#map').children('.row').remove();
+				$("#player").remove();
 				drawMap(offsetY/tileSize, offsetX/tileSize);
 				$("#player").css({"top":"0px","left":positionX+"px"});
 				positionY = 0;
@@ -543,12 +549,13 @@ $(document).keydown(function(e) {
 			if(up && (pY+1) % (mapHeightTiles/tileSize) == 0) {
 				offsetY -= mapHeightTiles;
 				$('#map').children('.row').remove();
+				$("#player").remove();
 				drawMap(offsetY/tileSize, offsetX/tileSize);
 				var topOffset = mapHeightTiles - tileSize;
 				$("#player").css({"top":topOffset+"px","left":positionX+"px"});
 				positionY = topOffset;
 			}
-		});
+		//});
 	}
 	
 	talk(Math.ceil(pY),Math.ceil(pX));
@@ -628,7 +635,7 @@ $(document).ready(function(){
 				setTimeout(function(){
 					showTaskDialog(characters["amber"],characters["amber"].tasks[amberCurrentTask]);
 					$('#answer').focus();
-				}, 600)
+				}, 2000)
 			}
 		}
 		
@@ -648,7 +655,7 @@ $(document).ready(function(){
 				setTimeout(function(){
 					showTaskDialog(characters["carrot"],characters["carrot"].tasks[carrotCurrentTask]);
 					$('#answer').focus();
-				}, 600)
+				}, 2000)
 			}
 		}
 		
@@ -673,7 +680,7 @@ $(document).ready(function(){
 				setTimeout(function(){
 					showTaskDialog(characters["dragon"],characters["dragon"].tasks[dragonCurrentTask]);
 					$('#answer').focus();
-				}, 600)
+				}, 2000)
 			}
 		}
 	});
