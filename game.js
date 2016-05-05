@@ -58,7 +58,7 @@ var scarlettDone = false;
 var amberClasses = ["bridge"];
 var amberAnswers = ["200%"];
 var amberCurrentTask = 0;
-var amberDone = false;
+var amberDone = true;
 
 //Needed for Carrot's task
 var carrotClasses = ["carrot"];
@@ -398,10 +398,15 @@ function carrotTask() {
 	showTaskDialog(characters["carrot"],characters["carrot"].tasks[carrotCurrentTask]);
 	$('#task').show();
 	$('#task').append('<img id="carrotImage" src="npc/tiny-' + carrotClasses[carrotCurrentTask] + '-front.png" height="400" width="400" />');
-	$('.content').html('.' + carrotClasses[carrotCurrentTask] + ' { <br />height:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
-	$('#answer').focus();
+	//$('.content').html('.' + carrotClasses[carrotCurrentTask] + ' { <br />height:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
+	//$('#answer').focus();
+	$('.content').html('<input type="text" class="carrotTaskAnswers" id="partOne" name="partOne" placeholder=".'+ carrotClasses[carrotCurrentTask] +' {"><br />' +
+					   '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="carrotTaskAnswers" id="partTwo" name="partTwo" placeholder="height:&nbsp;_____;"> <br />' +
+					   '<input type="text" class="carrotTaskAnswers" id="partThree" name="partThree" placeholder="}">');
+	$('#partOne').focus();
 	
-	$('#answer').on('keyup', function(e) {
+	
+	$('.carrotTaskAnswers').on('keyup', function(e) {
 		if(!$(this).html())
 			$(this).html('&nbsp;');
 		if (e.keyCode == 13) {
@@ -763,7 +768,6 @@ $(document).ready(function(){
 		
 		//AMBER
 		if(rosaDone && scarlettDone) {
-			var answer;
 			var partOne = $('#partOne').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
 			var partTwo = $('#partTwo').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
 			var partThree = $('#partThree').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
@@ -837,22 +841,74 @@ $(document).ready(function(){
 		
 		//CARROT
 		if(rosaDone && scarlettDone && amberDone) {
-			var answer = $('#answer').html().replace('&nbsp;', '').replace('<br>', '').trim();
-			if(answer == carrotAnswers[carrotCurrentTask]){
-				$('#carrotImage').attr('src', 'npc/' + carrotClasses[carrotCurrentTask] + '-front.png');
-				showTaskDialog(characters["carrot"],characters["carrot"].positiveFeedback);
-				timer = setTimeout(function(){ 
-					carrotCurrentTask++;
-					$('#task').html('');
-					carrotTask();
-				}, 2000);  
+			var partOne = $('#partOne').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+			var partTwo = $('#partTwo').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+			var partThree = $('#partThree').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+			
+			if(partOne == ('.' + carrotClasses[carrotCurrentTask] + '{')) {
+				if(partTwo == ('height:'+ carrotAnswers[carrotCurrentTask] + ';')){
+					if(partThree == '}') {
+						$('#carrotImage').attr('src', 'npc/' + carrotClasses[carrotCurrentTask] + '-front.png');
+						showTaskDialog(characters["carrot"],characters["carrot"].positiveFeedback);
+						timer = setTimeout(function(){ 
+							//TODO: Dialog
+							carrotCurrentTask++;
+							$('#task').html('');
+							carrotTask();
+						}, 3000);  
+					}
+					else {
+						if(partThree.indexOf('}') == -1){
+							showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback[8]); //forgot '}'
+						} else {
+							showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback[9]); //catch all
+						}
+						setTimeout(function(){
+							showTaskDialog(characters["carrot"],characters["carrot"].tasks[carrotCurrentTask]);
+							$('#partThree').text("");
+							$('#partThree').focus();
+						}, 3000);
+					}
+				}
+				else {
+					if(partTwo.indexOf('height') == -1){
+						showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback[3]); //forgot 'height'
+					}else if (partTwo.indexOf(':') == -1){
+						showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback[4]); //forgot ':'
+					}
+					else if (partTwo.indexOf(carrotAnswers[carrotCurrentTask].replace('%','')) == -1){
+						showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback[5]); //forgot the correct height
+					}
+					else if (partTwo.indexOf(carrotAnswers[carrotCurrentTask]) == -1){
+						showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback[6]); //forgot the correct height
+					}
+					else if (partTwo.indexOf(';') == -1){
+						showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback[7]); //forgot ';'
+					}
+					else {
+						showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback[9]); //catch all
+					}
+					setTimeout(function(){
+						showTaskDialog(characters["carrot"],characters["carrot"].tasks[carrotCurrentTask]);
+						$('#partTwo').text("");
+						$('#partTwo').focus();
+					}, 3000);
+				}
 			}
 			else {
-				showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback);
+				if(partOne.indexOf('.') == -1) { //forgot the .
+					showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback[0]); //forgot '.'
+				}else if (partOne.indexOf(carrotClasses[carrotCurrentTask]) == -1){
+					showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback[1]); //forgot class name
+				}
+				else if (partOne.indexOf('{') == -1){
+					showTaskDialog(characters["carrot"],characters["carrot"].negativeFeedback[2]); //forgot '{'
+				}
 				setTimeout(function(){
-					showTaskDialog(characters["carrot"],characters["carrot"].tasks[carrotCurrentTask]);
-					$('#answer').focus();
-				}, 2000)
+						showTaskDialog(characters["carrot"],characters["carrot"].tasks[carrotCurrentTask]);
+						$('#partOne').text("");
+						$('#partOne').focus();
+					}, 3000);
 			}
 		}
 		

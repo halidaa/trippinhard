@@ -129,7 +129,7 @@ characters["amber"] = {
 								"Don't forget to add a ';' after your property value.",
 								"Ooo, can't forget to include the '}' at the end!",
 								"Hmmm, try formatting it like 'width: your_width%'."
-							]
+						]
 					};
 characters["carrot"] = {
 						"name":"Charles 'Carrot' Rodriguez",
@@ -141,10 +141,21 @@ characters["carrot"] = {
 							"Do you think you think you could help me out with my <i>height</i>?"
 						],
 						"tasks":[
-							"Could you make me four times taller!",
+							"Could you make me, <b>carrot</b>, have a <i>height</i> four times greater than what I currently am?",
 						],
 						"positiveFeedback":"Great!",
-						"negativeFeedback":"Hm, not quite...but almost..."
+						"negativeFeedback":[
+								"Looks like you forgot to put a '.' before the class name.",
+								"Don't forget to include the class name that I'm stating in bold!",
+								"Ooo, can't forget to include the '{' after the class name.",
+								"Don't forget to include <i>height</i>.",
+								"Don't forget to add a ':' between the property name and property value!",
+								"Looks like you didn't make four times my current height of 100% :(",
+								"Don't forget to include a '%' following your height's value.",
+								"Don't forget to add a ';' after your property value.",
+								"Ooo, can't forget to include the '}' at the end!",
+								"Hmmm, try formatting it like 'height: your_height%'."
+						]
 					};
 characters["ray"] = {
 						"name":"Ray Sunshine",
