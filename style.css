@@ -784,7 +784,9 @@ body{
 .b-tile { 
 	background-image:url(water/water-tiles-01.png)!important; 
 } 
-.bw-tile {}
+.bw-tile {
+	background-image:url(water/water-tiles-01.png)!important; 
+}
 .bridge-50 {
 	background:url(bridge/bridge-50.png);
 	width:100px;
@@ -818,7 +820,7 @@ body{
 }
 /******************** END TROGDOR ******************/
 
-/******************** SANDHOUSES ******************/
+/******************** SANDSTUFF ******************/
 .s1-tile {} 
 .sandhouse-01 {
 	background:url(houses/sandhouse-01.png);
@@ -826,4 +828,11 @@ body{
 	height:100px;
 	position:absolute;
 }
-/******************** END SANDHOUSES ******************/
+.c1-tile {} 
+.cactus-01 {
+	background:url(trees/cactus.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+/******************** END SANDSTUFF ******************/

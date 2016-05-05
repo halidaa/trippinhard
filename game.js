@@ -15,12 +15,12 @@ var realMap = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  			1,1,1,0,0,0,0,
 		  ];
 
 var map = [
-	["t3b",0,0,0,0,0,0,0,"t3p",0,									1,1,1,0,0,0,0,0,0,0,										0,0,0,0,0,0,"g2",0,0,0],
-	[0,"vernon","t2b",0,"t2p","h3p",0,0,0,0,						0,1,0,0,0,0,"carrot",0,0,0,									0,0,0,0,0,"d2","dragon",0,0,0],
-	[0,"t",1,1,1,1,0,"t4r","t2r",0,									0,1,1,1,1,1,"t",1,1,1,										1,1,0,0,0,"d1","t",0,0,0],
-	[0,1,0,0,0,1,"rosa","h2r","t3r","t1r",							"w1","b","w2","w3","w4","w5","w1","w2","w3","w4",			0,1,1,1,1,1,1,0,0,0],
-	[0,1,"h2y","t2y",0,1,"t",1,1,1,									0,"t","amber",0,0,0,0,0,0,0,								0,0,0,0,"s1",0,0,0,0,0],
-	["t4g",1,0,0,0,0,0,0,0,1,										0,"l2",0,0,0,0,0,0,0,0,										0,0,0,0,0,0,0,0,0,0],
+	["t3b",0,0,0,0,0,0,0,"t3p",0,									1,1,1,0,0,0,0,"c1",0,0,										0,0,0,0,0,"c1","g2","c1",0,0],
+	[0,"vernon","t2b",0,"t2p","h3p",0,0,0,0,						0,0,1,"s1",0,0,0,0,"carrot",0,								0,"c1",0,0,"c1","d2","dragon",0,"c1",0],
+	[0,"t",1,1,1,1,0,"t4r","t2r",0,									0,0,1,1,1,1,"t",1,1,1,										1,1,1,0,0,"d1","t","w2","w1","w3"],
+	[0,1,0,0,0,1,"rosa","h2r","t3r","t1r",							"w4","w1","w2","w4","bw","w5","w1","w2","w3","w4",			"w1","w1","bw","w2","w1","w1",1,"w2","w1","w1"],
+	[0,1,"h2y","t2y",0,1,"t",1,1,1,									0,0,0,0,"t","amber",0,0,0,0,								0,0,1,0,"c1",0,1,"w1","w3","w4"],
+	["t4g",1,0,0,0,0,0,0,0,1,										0,"c1",0,0,"l2",0,"c1",0,0,0,								0,0,1,1,1,1,1,0,0,0],
 
 	[0,1,"t1b","t4p",0,0,"h1p","h2r","h3r",0,						0,0,0,0,"g1",0,0,0,0,0],
 	[0,1,1,1,1,0,"h1g","h2b","h3g",0,								0,0,0,"redguard-right","t","redguard-left",0,0,0,0],
@@ -40,7 +40,7 @@ var mapHeightTiles = 6 * tileSize;
 var npcs = ["rosa", "amber", "redguard-left", "redguard-right", "orangeguard", "ray", "carrot", "scarlett", "vernon", "dragon"];
 var timer;
 var isInTask = false;
-var walkableTiles = ["t", "l2", "bw", "dragon", "g2"];
+var walkableTiles = ["t", "l2", "bw", "dragon", "g2", "g1"];
 
 //Needed for Rosa's tasks
 var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
@@ -188,6 +188,7 @@ function drawMap(yCoord,xCoord){
 	$('.bw-tile').append('<div class="bridge-100"></div>');
 	$('.d2-tile').append('<div class="d2"></div>');
 	$('.s1-tile').append('<div class="sandhouse-01"></div>');
+	$('.c1-tile').append('<div class="cactus-01"></div>');
 	
 	var  assetColors = ["red", "blue", "green", "yellow", "purple"];
 	for(var i = 0; i < assetColors.length; i++) {
@@ -352,7 +353,7 @@ function amberTask() {
 		$('#task').hide();
 		
 		$('.b-tile').html('').append('<div class="bridge-100"></div>');
-		map[3][11] = "bw";
+		map[3][14] = "bw";
 		amberDone = true;
 		$(".content").html("Try talking to people!");
 		
@@ -484,6 +485,19 @@ function startTask() {
 	}
 }
 
+$(document).one("keyup",function(e) {
+	if(!isOnDialog) return;
+	if(e.keyCode==37) {
+		$("#speech-panel-wrapper .prev-button").click();
+	} else if(e.keyCode==39) {
+		$("#speech-panel-wrapper .next-button").click();
+		nextLine();
+	} else if(e.keyCode==38) {
+		$("#speech-panel-wrapper .prev-button").click();
+	} else if(e.keyCode==40) {
+		$("#speech-panel-wrapper .next-button").click();
+	}
+})
 $(document).keydown(function(e) {
 	if (isInTask) return;
 	var up, down, left, right = false;
@@ -615,7 +629,7 @@ $(document).ready(function(){
 						rosaCurrentTask++;
 						$('#task').html('');
 						rosaTask();
-					}, 3000);  
+					}, 2500);  
 				}
 				else {
 					if(possibleColors.indexOf(answer) > -1){
@@ -627,7 +641,7 @@ $(document).ready(function(){
 						showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
 						$('#answer').text("");
 						$('#answer').focus();
-					}, 3000)
+					}, 2500)
 				}
 			}
 			else if (rosaCurrentTask >= 2) {
@@ -640,7 +654,7 @@ $(document).ready(function(){
 						rosaCurrentTask++;
 						$('#task').html('');
 						rosaTask();
-					}, 3000);  
+					}, 2500);  
 				}
 				else {
 					if(answer.indexOf('color') == -1){
@@ -655,7 +669,7 @@ $(document).ready(function(){
 						showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
 						$('#answer').text("");
 						$('#answer').focus();
-					}, 3000)
+					}, 2500)
 				}
 			}
 		}
@@ -672,7 +686,7 @@ $(document).ready(function(){
 						scarlettCurrentTask++;
 						$('#task').html('');
 						scarlettTask();
-					}, 3000);  
+					}, 2500);  
 				}
 				else {
 					if(answer.indexOf('background-color') == -1){
@@ -693,7 +707,7 @@ $(document).ready(function(){
 						showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
 						$('#answer').text("");
 						$('#answer').focus();
-					}, 3000);
+					}, 2500);
 				}
 			}
 			else if (scarlettCurrentTask >= 3) {
@@ -708,7 +722,7 @@ $(document).ready(function(){
 							scarlettCurrentTask++;
 							$('#task').html('');
 							scarlettTask();
-						}, 3000);  
+						}, 2500);  
 					}
 					else {
 						if(partTwo.indexOf('background-color') == -1){
@@ -729,7 +743,7 @@ $(document).ready(function(){
 							showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
 							$('#partTwo').text("");
 							$('#partTwo').focus();
-						}, 3000);
+						}, 2500);
 					}
 				}
 				else {
@@ -742,7 +756,7 @@ $(document).ready(function(){
 							showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
 							$('#partOne').text("");
 							$('#partOne').focus();
-						}, 3000);
+						}, 2500);
 				}
 			}
 		}
