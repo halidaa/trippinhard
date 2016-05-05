@@ -1,5 +1,5 @@
 var tileSize = 100;
-var map = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  			1,1,1,0,0,0,0,0,0,0,									0,0,0,0,0,0,"g2",0,0,0],
+var realMap = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  			1,1,1,0,0,0,0,0,0,0,									0,0,0,0,0,0,"g2",0,0,0],
 			[0,"h1y",0,"h2y",0,"h3y",0,"t1p","t3b","t1y",  			0,1,0,0,0,0,"carrot",0,0,0,								0,0,0,0,0,"d2","dragon",0,0,0],
 			[0,1,1,1,1,1,1,1,1,1,  									0,1,1,1,1,1,"t",1,1,1,									1,1,0,0,0,"d1","t",0,0,0],
 			[0,1,0,"h3r","rosa","t1r","t2r","t3r","t4r",1,  		"w1","b","w2","w3","w4","w5","w1","w2","w3","w4",		0,1,1,1,1,1,1,0,0,0],
@@ -11,15 +11,24 @@ var map = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  			1,1,1,0,0,0,0,0,0,
 			[0,0,1,"t","scarlett",0,"h1y","h2b","h3b",0,  			0,1,0,0,0,0,0,0,0,0],
 			[0,0,0,1,1,0,"h1y","h2y","h3g",0,  						0,1,0,0,0,0,0,0,0,0],
 			[0,0,0,0,1,1,"h1p","h2r","h3p",0,  						0,1,0,0,0,0,0,0,0,0],
-			[2,0,2,0,2,1,1,1,1,1,  									1,1,0,0,0,0,0,0,0,0],
-	
-			[0,1,0,0,0,0,0,0,0,0,  									0,0,1,0,0,0,0,0,0,0], 
-			[0,1,0,0,0,0,0,0,0,0,  									0,0,1,0,0,0,0,0,0,0],
-			[0,1,0,0,0,0,0,0,0,0,  									0,0,1,1,1,0,0,0,0,0],
-			[0,1,0,0,0,0,0,0,0,0,  									0,0,0,0,1,0,0,0,0,0],
-			[0,1,0,0,0,0,0,0,0,0,  									0,0,0,0,1,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0,  									0,0,0,0,0,0,0,0,0,0]
+			[2,0,2,0,2,1,1,1,1,1,  									1,1,0,0,0,0,0,0,0,0]
 		  ];
+
+var map = [
+	["t3b",0,0,0,0,0,0,0,"t3p",0,									1,1,1,0,0,0,0,0,0,0,										0,0,0,0,0,0,"g2",0,0,0],
+	[0,"vernon","t2b",0,"t2p","h3p",0,0,0,0,						0,1,0,0,0,0,"carrot",0,0,0,									0,0,0,0,0,"d2","dragon",0,0,0],
+	[0,"t",1,1,1,1,0,"t4r","t2r",0,									0,1,1,1,1,1,"t",1,1,1,										1,1,0,0,0,"d1","t",0,0,0],
+	[0,1,0,0,0,1,"rosa","h2r","t3r","t1r",							"w1","b","w2","w3","w4","w5","w1","w2","w3","w4",			0,1,1,1,1,1,1,0,0,0],
+	[0,1,"h2y","t2y",0,1,"t",1,1,1,									0,"t","amber",0,0,0,0,0,0,0,								0,0,0,0,"s1",0,0,0,0,0],
+	["t4g",1,0,0,0,0,0,0,0,1,										0,"l2",0,0,0,0,0,0,0,0,										0,0,0,0,0,0,0,0,0,0],
+
+	[0,1,"t1b","t4p",0,0,"h1p","h2r","h3r",0,						0,0,0,0,"g1",0,0,0,0,0],
+	[0,1,1,1,1,0,"h1g","h2b","h3g",0,								0,0,0,"redguard-right","t","redguard-left",0,0,0,0],
+	[0,0,0,0,"t","scarlett","h1y","h2b","h3b",0,					0,0,0,0,1,0,0,0,0,0],
+	[0,"t2y",0,0,1,0,"h1y","h2y","h3g",0,							"t2r","t2r","t2r","t2r",1,"t2r","t2r","t2r","t2r","t2r"],
+	[1,1,1,1,1,0,"h1p","h2r","h3p",0,								0,0,0,0,1,0,0,0,0,0],
+	["h1y","h2b",0,0,1,1,1,1,1,1,									1,1,1,1,1,1,1,1,1,1]
+];
 		 
 var floatValue = 10;
 var flyValue = 85;
@@ -37,7 +46,7 @@ var walkableTiles = ["t", "l2", "bw", "dragon", "g2"];
 var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
 var rosaAnswers = ["green", "blue", "yellow", "purple"];
 var rosaCurrentTask = 0;
-var rosaDone = true;
+var rosaDone = false;
 
 //Needed for Scarlett's tasks
 var scarlettClasses = ["purple-wall", "blue-wall", "yellow-wall", "green-wall", "red-wall"];
@@ -193,7 +202,7 @@ function drawMap(yCoord,xCoord){
 	}
 
 	if($("#player").length < 1)
-		$("#map").append("<div id='player'><div class='companion'></div></div>")
+		$("#map").append("<div id='player'><div class='companion'></div></div>");
 }
 
 //Totally using this for things that aren't just talking to NPCs
@@ -249,6 +258,8 @@ function rosaTask() {
 		map[3][7] = "t3y";
 		map[3][8] = "t4p";
 		rosaDone = true;
+
+		$(".content").html("Try talking to people!");
 		
 		return;
 	}
@@ -298,6 +309,7 @@ function scarlettTask() {
 		map[10][7] = "h2p";
 
 		scarlettDone = true;
+		$(".content").html("Try talking to people!");
 		
 		return;
 	}
@@ -341,6 +353,7 @@ function amberTask() {
 		$('.b-tile').html('').append('<div class="bridge-100"></div>');
 		map[3][11] = "bw";
 		amberDone = true;
+		$(".content").html("Try talking to people!");
 		
 		return;
 	}
@@ -373,6 +386,7 @@ function carrotTask() {
 		$('.carrot-tile').html('').append('<div class="carrot"></div>');
 		map[3][11] = "bw";
 		carrotDone = true;
+		$(".content").html("Try talking to people!");
 		
 		return;
 	}
@@ -405,6 +419,7 @@ function dragonTask() {
 		$('.d1-tile').append('<div class="d1"></div>');
 		$('.d2-tile').html('');
 		dragonDone = true;
+		$(".content").html("Try talking to people!");
 		
 		return;
 	}
@@ -800,7 +815,7 @@ $(document).ready(function(){
 	//change it to drawMap(0,0) to start from the actual start!
 	//draw the board
 	offsetX = 0;//2000;
-	offsetY = 600;
+	offsetY = 0;
 	drawMap(offsetY/tileSize, offsetX/tileSize);
 	//drawMap(0,0);
 	

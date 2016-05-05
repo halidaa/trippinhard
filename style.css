@@ -108,6 +108,13 @@ body{
 	text-align:center;
 }
 
+#programming-panel input{
+	min-width:70px;
+	font-family: "Droid Sans Mono", monospace;
+	font-size: 1em;
+	display: inline-block;
+}
+
 #submit{
 	background-color:#26BC9B;
 	border:0;
@@ -154,6 +161,7 @@ body{
 	top:0;
 	left:0;
 	z-index:100;
+	padding-top:20px;
 }
 #speech-panel-wrapper{
 	position:absolute;
