@@ -126,15 +126,15 @@ function drawMap(yCoord,xCoord){
 	$('.redguard-right-tile').append('<div class="redguard-right"></div>');
 	$('.redguard-left-tile').append('<div class="redguard-left"></div>');
 	
-	var  colors = ["red", "blue", "green", "yellow", "purple"];
-	for(var i = 0; i < colors.length; i++) {
+	var  assetColors = ["red", "blue", "green", "yellow", "purple"];
+	for(var i = 0; i < assetColors.length; i++) {
 		//4 types of Trees
 		for(var t = 1; t < 5; t++) { 
-			$('.t' + t + colors[i][0] + '-tile').append('<div class="tree-0' + t + '-' + colors[i] + '"></div>');
+			$('.t' + t + assetColors[i][0] + '-tile').append('<div class="tree-0' + t + '-' + assetColors[i] + '"></div>');
 		}
 		//3 types of Houses
 		for(var h = 1; h < 4; h++) {
-			$('.h' + h + colors[i][0] + '-tile').append('<div class="house-0' + h + '-' + colors[i] + '"></div>');
+			$('.h' + h + assetColors[i][0] + '-tile').append('<div class="house-0' + h + '-' + assetColors[i] + '"></div>');
 		}
 	}
 }
