@@ -18,7 +18,7 @@ var map = [
 	["t3b",0,0,0,0,0,0,0,"t3p",0,									1,1,1,0,0,0,0,"c1",0,0,										0,0,0,0,0,"c1","g2","c1",0,0],
 	[0,"vernon","t2b",0,"t2p","h3p",0,0,0,0,						0,0,1,"s1",0,0,0,0,"carrot",0,								0,"c1",0,0,"c1","d2","dragon",0,"c1",0],
 	[0,"t",1,1,1,1,0,"t4r","t2r",0,									0,0,1,1,1,1,"t",1,1,1,										1,1,1,0,0,"d1","t","w2","w1","w3"],
-	[0,1,0,0,0,1,"rosa","h2r","t3r","t1r",							"w4","w1","w2","w4","bw","w5","w1","w2","w3","w4",			"w1","w1","bw","w2","w1","w1",1,"w2","w1","w1"],
+	[0,1,0,0,0,1,"rosa","h2r","t3r","t1r",							"w4","w1","w2","w4","b","w5","w1","w2","w3","w4",			"w1","w1","bw","w2","w1","w1",1,"w2","w1","w1"],
 	[0,1,"h2y","t2y",0,1,"t",1,1,1,									0,0,0,0,"t","amber",0,0,0,0,								0,0,1,0,"c1",0,1,"w1","w3","w4"],
 	["t4g",1,0,0,0,0,0,0,0,1,										0,"c1",0,0,"l2",0,"c1",0,0,0,								0,0,1,1,1,1,1,0,0,0],
 
@@ -46,13 +46,13 @@ var walkableTiles = ["t", "l2", "bw", "dragon", "g2", "g1"];
 var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
 var rosaAnswers = ["green", "blue", "yellow", "purple"];
 var rosaCurrentTask = 0;
-var rosaDone = true;
+var rosaDone = false;
 
 //Needed for Scarlett's tasks
 var scarlettClasses = ["purple-wall", "blue-wall", "yellow-wall", "green-wall", "red-wall"];
 var scarlettAnswers = ["red", "green", "blue", "yellow", "purple"];
 var scarlettCurrentTask = 0;
-var scarlettDone = true;
+var scarlettDone = false;
 
 //Needed for Amber's task
 var amberClasses = ["bridge"];
@@ -885,10 +885,10 @@ $(document).ready(function(){
 	
 	//change it to drawMap(0,0) to start from the actual start!
 	//draw the board
-	offsetX = 1000;//2000;
-	offsetY = 0;
-	drawMap(offsetY/tileSize, offsetX/tileSize);
-	//drawMap(0,0);
+	//offsetX = 1000;//2000;
+	//offsetY = 0;
+	//drawMap(offsetY/tileSize, offsetX/tileSize);
+	drawMap(0,0);
 	
 	//float the avatar thingy
 	floatPlayer();
