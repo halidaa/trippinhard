@@ -94,7 +94,7 @@ function floatPlayer(){
 }
 
 function animateCompanion(){
-	$("#player .companion").animate({"left":flyValue+"%","margin-top":"+="+floatValue},850,function(){
+	$("#player .companion").animate({"left":flyValue+"%","margin-top":floatValue+"px"},850,function(){
 			if(flyValue == 85)
 				flyValue = 5;
 			else
@@ -297,7 +297,7 @@ $(document).keydown(function(e) {
 	
 	if(!animating && shouldAnimate && isWalkable(pY,pX)){
 		animating = true;
-		$("#player").animate({"top":positionY+"px","left":positionX+"px"},750,function(){
+		$("#player").animate({"top":positionY+"px","left":positionX+"px"},400,function(){
 			animating = false;
 			
 			if(right && pX % (mapWidthTiles/tileSize) == 0) {
