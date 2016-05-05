@@ -182,7 +182,7 @@ function rosaTask() {
 
 	showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
 	$('#task').show();
-	$('#task').append('<img id="rosaImage" src="trees/' + rosaClasses[rosaCurrentTask] + '.png" height="400" width="400" />');
+	$('#task').append('<img id="rosaImage" src="trees/task-' + rosaClasses[rosaCurrentTask] + '.png" height="400" width="400" />');
 	$('.content').html('.' + rosaClasses[rosaCurrentTask].replace('-red','') + ' { <br />&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
 	$('#answer').focus();
 	
@@ -223,7 +223,7 @@ function scarlettTask() {
 	}
 	showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
 	$('#task').show();
-	$('#task').append('<img id="scarlettImage" src="walls/' + scarlettClasses[scarlettCurrentTask] + '.png" height="400" width="400" />');
+	$('#task').append('<img id="scarlettImage" src="walls/' + scarlettClasses[scarlettCurrentTask] + '.png" height="400" width="600" />');
 	$('.content').html('.' + scarlettClasses[scarlettCurrentTask] + ' { <br />background-color:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
 	$('#answer').focus();
 	
@@ -317,7 +317,7 @@ $(document).keydown(function(e) {
 	
 	if(!animating && shouldAnimate && isWalkable(pY,pX)){
 		animating = true;
-		$("#player").animate({"top":positionY+"px","left":positionX+"px"},1,"linear",function(){
+		$("#player").animate({"top":positionY+"px","left":positionX+"px"},400,"linear",function(){
 			animating = false;
 			
 			if(right && pX % (mapWidthTiles/tileSize) == 0) {
@@ -361,11 +361,12 @@ $(document).ready(function(){
 	$('#task').hide();
 	$('#submit').on('click', function() {
 		var answer = $('#answer').html().replace('&nbsp;', '').replace('<br>', '').trim();
+		var possibleColors = ["red","yellow","blue","purple","green","pink","white","black","brown","aqua","orange","coral","violet"];
 		
 		//ROSA
 		if(!rosaDone) {
 			if(answer == rosaAnswers[rosaCurrentTask]){
-				$('#rosaImage').attr('src', 'trees/' + rosaClasses[rosaCurrentTask].replace('red', rosaAnswers[rosaCurrentTask]) + '.png');
+				$('#rosaImage').attr('src', 'trees/task-' + rosaClasses[rosaCurrentTask].replace('red', rosaAnswers[rosaCurrentTask]) + '.png');
 				showTaskDialog(characters["rosa"],characters["rosa"].positiveFeedback);
 				timer = setTimeout(function(){ 
 					//TODO: Dialog
@@ -375,11 +376,15 @@ $(document).ready(function(){
 				}, 2000);  
 			}
 			else {
-				showTaskDialog(characters["rosa"],characters["rosa"].negativeFeedback);
+				if(possibleColors.indexOf(answer) > -1){
+					showTaskDialog(characters["rosa"],characters["rosa"].negativeFeedback[1]);
+				}else{
+					showTaskDialog(characters["rosa"],characters["rosa"].negativeFeedback[0]);
+				}
 				setTimeout(function(){
 					showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
 					$('#answer').focus();
-				}, 600)
+				}, 2000)
 			}
 		}
 		
@@ -395,12 +400,16 @@ $(document).ready(function(){
 					scarlettTask();
 				}, 2000);  
 			}
-			else if((rosaCurrentTask >= rosaClasses.length)) {
-				showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback);
+			else if(rosaDone) {
+				if(possibleColors.indexOf(answer) > -1){
+					showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[1]);
+				}else{
+					showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[0]);
+				}
 				setTimeout(function(){
 					showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
 					$('#answer').focus();
-				}, 600)
+				}, 2000)
 			}
 		}
 	});

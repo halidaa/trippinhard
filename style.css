@@ -152,9 +152,6 @@ body{
 	left:0;
 	z-index:100;
 }
-#task img{
-	width:70%;
-}
 #speech-panel-wrapper{
 	position:absolute;
 	top:0;
@@ -166,8 +163,11 @@ body{
 	display:none;
 	overflow:hidden;
 }
-#speech-panel-wrapper.in-task{
-	background-color:#D3D3D3;
+.red #speech-panel-wrapper.in-task{
+	background:#A0D468 url(texture_red.png);
+}
+.yellow #speech-panel-wrapper.in-task{
+	background:#f9d375 url(texture_yellow.png);
 }
 #speech-panel-wrapper.in-task .body .speech{
 	height:45px;

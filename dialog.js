@@ -35,7 +35,7 @@ characters["rosa"] = {
 							"Let's change tree-04 <i>color</i> to purple."
 						],
 						"positiveFeedback":"Great!",
-						"negativeFeedback":"Hm, not quite...but almost..."
+						"negativeFeedback":["Hm, not quite...but almost...","That's not the color I want though :("]
 					};
 characters["scarlett"] = {
 							"name":"Scarlett Firework",
@@ -59,7 +59,7 @@ characters["scarlett"] = {
 								"I think you should help Rosa up above before assisting me."
 							],
 							"positiveFeedback":"Great!",
-							"negativeFeedback":"Hm, not quite...but almost..."
+							"negativeFeedback":["Hm, not quite...but almost...","That's not the color I want though :("]
 						};
 characters["vernon"] = {
 							"name":"Vernon Vermilion",
