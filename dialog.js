@@ -29,13 +29,19 @@ characters["rosa"] = {
 							"Do you think you could help me change the <i>color</i> of these trees?"
 						],
 						"tasks":[
-							"Let's change tree-01 <i>color</i> to green.",
-							"Let's change tree-02 <i>color</i> to blue.",
-							"Let's change tree-03 <i>color</i> to yellow.",
-							"Let's change tree-04 <i>color</i> to purple."
+							"Let's change <b>tree-01</b> <i>color</i> to <u>green</u>.",
+							"Let's change <b>tree-02</b> <i>color</i> to <u>blue</u>.",
+							"Let's change <b>tree-03</b> <i>color</i> to <u>yellow</u>.",
+							"Let's change <b>tree-04</b> <i>color</i> to <u>purple</u>."
 						],
 						"positiveFeedback":"Great!",
-						"negativeFeedback":["Hm, not quite...but almost...","That's not the color I want though :("]
+						"negativeFeedback":[
+							"Hmmm, try just inputting the name of the color that's underlined in my text.",
+							"That's not the color I want though :(",
+							"Don't forget to include <i>color</i>.",
+							"Don't forget to add a : between the property name and property value!",
+							"Hmmm, try formatting it like 'color: your_color'."
+						]
 					};
 characters["scarlett"] = {
 							"name":"Scarlett Firework",

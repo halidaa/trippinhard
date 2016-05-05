@@ -37,25 +37,25 @@ var walkableTiles = ["t", "l2", "bw", "dragon", "g2"];
 var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
 var rosaAnswers = ["green", "blue", "yellow", "purple"];
 var rosaCurrentTask = 0;
-var rosaDone = true;//false;
+var rosaDone = false;
 
 //Needed for Scarlett's tasks
 var scarlettClasses = ["purple-wall", "blue-wall", "yellow-wall", "green-wall", "red-wall"];
 var scarlettAnswers = ["red", "green", "blue", "yellow", "purple"];
 var scarlettCurrentTask = 0;
-var scarlettDone = true;//false;
+var scarlettDone = false;
 
 //Needed for Amber's task
 var amberClasses = ["bridge"];
 var amberAnswers = ["200%"];
 var amberCurrentTask = 0;
-var amberDone = true;//false;
+var amberDone = false;
 
 //Needed for Carrot's task
 var carrotClasses = ["carrot"];
 var carrotAnswers = ["400%"];
 var carrotCurrentTask = 0;
-var carrotDone = true;//false;
+var carrotDone = false;
 
 //Needed for Dragon's task
 var dragonClasses = ["trogdor"];
@@ -256,7 +256,14 @@ function rosaTask() {
 	showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
 	$('#task').show();
 	$('#task').append('<img id="rosaImage" src="trees/task-' + rosaClasses[rosaCurrentTask] + '.png" height="400" width="400" />');
-	$('.content').html('.' + rosaClasses[rosaCurrentTask].replace('-red','') + ' { <br />&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
+	if(rosaCurrentTask < 3) {
+		$('.content').html('.' + rosaClasses[rosaCurrentTask].replace('-red','') + ' { <br />' + 
+						   '&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;<input type="text" id="answer" placeholder="__________">;<br />}');
+	}
+    else {
+		$('.content').html('.' + rosaClasses[rosaCurrentTask].replace('-red','') + ' { <br />' + 
+						   '&nbsp;&nbsp;&nbsp;&nbsp;    <input type="text" id="answer" placeholder="color:&nbsp;__________">;<br />}');
+   }
 	$('#answer').focus();
 	
 	$('#answer').on('keyup', function(e) {
@@ -297,7 +304,11 @@ function scarlettTask() {
 	showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
 	$('#task').show();
 	$('#task').append('<img id="scarlettImage" src="walls/' + scarlettClasses[scarlettCurrentTask] + '.png" height="400" width="600" />');
-	$('.content').html('.' + scarlettClasses[scarlettCurrentTask] + ' { <br />background-color:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
+	$('.content').html('<input type="text" id="partOne" name="partOne" placeholder=".'+ scarlettClasses[scarlettCurrentTask] +' {"> <br />' +
+						   '<input type="text"  id="partTwo" name="partTwo" placeholder="background-color: your_answer;"> <br />' +
+						   '<input type="text"  id="partThree" name="partThree" placeholder="st">');
+	//'.' + scarlettClasses[scarlettCurrentTask] + ' { <br />background-color:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
+	
 	$('#answer').focus();
 	
 	$('#answer').on('keyup', function(e) {
@@ -569,15 +580,58 @@ $(document).ready(function(){
 		
 		//ROSA
 		if(!rosaDone) {
-			if(answer == rosaAnswers[rosaCurrentTask]){
-				$('#rosaImage').attr('src', 'trees/task-' + rosaClasses[rosaCurrentTask].replace('red', rosaAnswers[rosaCurrentTask]) + '.png');
-				showTaskDialog(characters["rosa"],characters["rosa"].positiveFeedback);
-				timer = setTimeout(function(){ 
-					//TODO: Dialog
-					rosaCurrentTask++;
-					$('#task').html('');
-					rosaTask();
-				}, 2000);  
+			var answer = $('#answer').val().split('&nbsp;').join('').split('<br>').join('').trim();
+			if(rosaCurrentTask < 3) {
+				if(answer == rosaAnswers[rosaCurrentTask]){
+					$('#rosaImage').attr('src', 'trees/task-' + rosaClasses[rosaCurrentTask].replace('red', rosaAnswers[rosaCurrentTask]) + '.png');
+					showTaskDialog(characters["rosa"],characters["rosa"].positiveFeedback);
+					timer = setTimeout(function(){ 
+						//TODO: Dialog
+						rosaCurrentTask++;
+						$('#task').html('');
+						rosaTask();
+					}, 2000);  
+				}
+				else {
+					if(possibleColors.indexOf(answer) > -1){
+						showTaskDialog(characters["rosa"],characters["rosa"].negativeFeedback[1]);
+					}else{
+						showTaskDialog(characters["rosa"],characters["rosa"].negativeFeedback[0]);
+					}
+					setTimeout(function(){
+						showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
+						$('#answer').text("");
+						$('#answer').focus();
+					}, 3000)
+				}
+			}
+			else if (rosaCurrentTask >= 3) {
+				answer = answer.split(' ').join('');
+				if(answer == ('color:'+rosaAnswers[rosaCurrentTask])){
+					$('#rosaImage').attr('src', 'trees/task-' + rosaClasses[rosaCurrentTask].replace('red', rosaAnswers[rosaCurrentTask]) + '.png');
+					showTaskDialog(characters["rosa"],characters["rosa"].positiveFeedback);
+					timer = setTimeout(function(){ 
+						//TODO: Dialog
+						rosaCurrentTask++;
+						$('#task').html('');
+						rosaTask();
+					}, 2000);  
+				}
+				else {
+					if(answer.indexOf('color') == -1){
+						showTaskDialog(characters["rosa"],characters["rosa"].negativeFeedback[2]); //forgot 'color'
+					}else if (answer.indexOf(':') == -1){
+						showTaskDialog(characters["rosa"],characters["rosa"].negativeFeedback[3]); //forgot ':'
+					}
+					else {
+						showTaskDialog(characters["rosa"],characters["rosa"].negativeFeedback[4]);
+					}
+					setTimeout(function(){
+						showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
+						$('#answer').text("");
+						$('#answer').focus();
+					}, 3000)
+				}
 			}
 			else {
 				if(possibleColors.indexOf(answer) > -1){
@@ -589,7 +643,7 @@ $(document).ready(function(){
 					showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
 					$('#answer').text("");
 					$('#answer').focus();
-				}, 2000)
+				}, 3000)
 			}
 		}
 		
@@ -687,9 +741,10 @@ $(document).ready(function(){
 	
 	//change it to drawMap(0,0) to start from the actual start!
 	//draw the board
-	offsetX = 2000;
-	offsetY = 0;
-	drawMap(offsetY/tileSize, offsetX/tileSize);
+	//offsetX = 2000;
+	//offsetY = 0;
+	//drawMap(offsetY/tileSize, offsetX/tileSize);
+	drawMap(0,0);
 	
 	//float the avatar thingy
 	floatPlayer();
