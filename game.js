@@ -3,7 +3,7 @@ var map = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  			1,1,1,0,0,0,0,0,0,
 			[0,"h1y",0,"h2y",0,"h3y",0,"t1p","t3b","t1y",  			0,1,0,0,0,0,"carrot",0,0,0,								0,0,0,0,0,"d2","dragon",0,0,0],
 			[0,1,1,1,1,1,1,1,1,1,  									0,1,1,1,1,1,"t",1,1,1,									1,1,0,0,0,"d1","t",0,0,0],
 			[0,1,0,"h3r","rosa","t1r","t2r","t3r","t4r",1,  		"w1","b","w2","w3","w4","w5","w1","w2","w3","w4",		0,1,1,1,1,1,1,0,0,0],
-			[0,1,1,1,"t",1,1,1,1,1,  								0,"t","amber",0,0,0,0,0,0,0,							0,0,0,0,0,0,0,0,0,0],
+			[0,1,1,1,"t",1,1,1,1,1,  								0,"t","amber",0,0,0,0,0,0,0,							0,0,0,0,"s1",0,0,0,0,0],
 			[0,1,0,0,0,0,0,0,0,0,  									0,"l2",0,0,0,0,0,0,0,0,									0,0,0,0,0,0,0,0,0,0], 
 			
 			[0,1,0,0,0,0,"h1p","h2r","h3r",0,  						0,"g1",0,0,0,0,0,0,0,0],
@@ -32,6 +32,7 @@ var npcs = ["rosa", "amber", "redguard-left", "redguard-right", "orangeguard", "
 var timer;
 var isInTask = false;
 var walkableTiles = ["t", "l2", "bw", "dragon", "g2"];
+
 //Needed for Rosa's tasks
 var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
 var rosaAnswers = ["green", "blue", "yellow", "purple"];
@@ -177,6 +178,7 @@ function drawMap(yCoord,xCoord){
 	$('.b-tile').append('<div class="bridge-50"></div>');
 	$('.bw-tile').append('<div class="bridge-100"></div>');
 	$('.d2-tile').append('<div class="d2"></div>');
+	$('.s1-tile').append('<div class="sandhouse-01"></div>');
 	
 	var  assetColors = ["red", "blue", "green", "yellow", "purple"];
 	for(var i = 0; i < assetColors.length; i++) {
@@ -657,6 +659,8 @@ $(document).ready(function(){
 			
 			if(width == '33%' && height == '50%'){ //Hardcoding because tired
 				$('#dragonImage').attr('src', 'trogdor100.png');
+				$('#dragonImage').css('width','100');
+				$('#dragonImage').css('height','100');
 				showTaskDialog(characters["dragon"],characters["dragon"].positiveFeedback);
 				timer = setTimeout(function(){ 
 					dragonCurrentTask++;

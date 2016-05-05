@@ -790,7 +790,7 @@ body{
 }
 /******************** END BRIDGE ********************/
 
-/******************** THE BURNANATOR ******************/
+/******************** THE TROGDOR ******************/
 .d1-tile {} 
 .d1 {
 	background:url(trogdor100.png);
@@ -806,4 +806,14 @@ body{
 	height:200px;
 	position:absolute;
 }
-/******************** END BURNANATOR ******************/
+/******************** END TROGDOR ******************/
+
+/******************** SANDHOUSES ******************/
+.s1-tile {} 
+.sandhouse-01 {
+	background:url(houses/sandhouse-01.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+/******************** END SANDHOUSES ******************/
