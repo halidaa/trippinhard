@@ -9,43 +9,29 @@
 		<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
 	</head>
 	<body>
-		<div id="sidebar">
+		<div id="main-title">
 			<h1>Trippin' Hard</h1>
-			<div id="programming-panel">
-				<div class="title">console</div>
-				<div class="content">.nothing-to-see-here {display:none;}</div>
-				<div class="footer">
-					<input id="submit" type="button" value="submit" />
-				</div>
-			</div>
+			<p>It's educational.</p>
+			<a class="start-button" href="game.html">Begin</a>
 		</div>
-		<div id="world">
-			<div id="map">
-				<!--<div class="house" style="top:55px;left:275px"></div>
-				<div class="house" style="top:250px;left:725px"></div>
-				<div class="building" style="top:350px;left:200px"></div>-->
-				<div id="player" style="top:200px;left:100px;">
-					<div class="companion">
-					</div>
-				</div>
-			</div>
-			<div id="task">
-			</div>
-			<div id="speech-panel-wrapper">
-				<div class="panel">
-					<div class="header">
-						<div class="avatar"><img src="" /></div>
-						<h2 class="name"></h2>
-						<i class="fa fa-times fa-lg"></i>
-					</div>
-					<div class="body">
-						<div class="speech"></div>
-						<p class="navigation"><span class="prev-button"><i class="fa fa-arrow-left"></i> PREV</span><span class="start-button" onclick="startTask();">START <i class="fa fa-arrow-right"></i></span><span class="next-button">NEXT <i class="fa fa-arrow-right"></i></span></p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script src="game.js"></script>
-		<script src="dialog.js"></script>
+		<script>
+			var letters = $("#main-title h1").text().split("");
+			for(var i = 0; i< letters.length; i++)
+				letters[i] = "<span>"+letters[i]+"</span>";
+			$("#main-title h1").html(letters.join(""));
+			
+			var colors = ['blue','yellow','red','green','purple'];
+
+			function changeColor(){
+			  $("#main-title h1 span").each(function(){
+				var _rand = Math.floor(Math.random() * colors.length);
+				$(this).removeClass().addClass(colors[_rand]);
+			  })
+			}
+
+			$(function(){
+			  setInterval(changeColor, 1000);
+			})
+		</script>
 	</body>
 </html>
