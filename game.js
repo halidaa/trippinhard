@@ -1,24 +1,24 @@
 var tileSize = 100;
-var map = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  1,1,1,0,0,0,0,0,0,0],
-			[0,"h1y",0,"h2y",0,"h3y",0,"t1p","t3b","t1y",  0,1,0,0,0,0,0,0,0,0],
-			[0,1,1,1,1,1,1,1,1,1,  0,1,1,1,1,1,1,1,1,1],
-			[0,1,0,"h3r","rosa","t1r","t2r","t3r","t4r",1,  0,1,0,0,0,0,0,0,0,0],
-			[0,1,1,1,"t",1,1,1,1,1,  0,1,0,0,0,0,0,0,0,0],
-			["redguard-right","t","redguard-left",0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0], 
+var map = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  			1,1,1,0,0,0,0,0,0,0],
+			[0,"h1y",0,"h2y",0,"h3y",0,"t1p","t3b","t1y",  			0,1,0,0,0,0,0,0,0,0],
+			[0,1,1,1,1,1,1,1,1,1,  									0,1,1,1,1,1,1,1,1,1],
+			[0,1,0,"h3r","rosa","t1r","t2r","t3r","t4r",1,  		"w1","b","w2","w3","w4","w5","w1","w2","w3","w4"],
+			[0,1,1,1,"t",1,1,1,1,1,  								0,"t","amber",0,0,0,0,0,0,0],
+			[0,1,0,0,0,0,0,0,0,0,  									0,"l2",0,0,0,0,0,0,0,0], 
 			
-			[0,1,0,0,0,0,"h1p","h2r","h3r",0,  0,0,0,0,0,0,0,0,0,0],
-			[0,1,1,0,2,0,"h1g","h2b","h3g",0,  0,0,0,0,0,0,0,0,0,0],
-			[0,0,1,"t","scarlett",0,"h1y","h2b","h3b",0,  0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,1,1,0,"h1y","h2y","h3g",0,  "rosa",0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,1,1,"h1p","h2r","h3p",0,  "t",0,0,0,0,0,0,0,0,0],
-			[2,0,2,0,2,1,1,1,1,1,  1,0,0,0,0,0,0,0,0,0],
+			[0,1,0,0,0,0,"h1p","h2r","h3r",0,  						0,"g1",0,0,0,0,0,0,0,0],
+			[0,1,1,0,2,0,"h1g","h2b","h3g",0,  						"redguard-right","t","redguard-left",0,0,0,0,0,0,0],
+			[0,0,1,"t","scarlett",0,"h1y","h2b","h3b",0,  			0,1,0,0,0,0,0,0,0,0],
+			[0,0,0,1,1,0,"h1y","h2y","h3g",0,  						0,1,0,0,0,0,0,0,0,0],
+			[0,0,0,0,1,1,"h1p","h2r","h3p",0,  						0,1,0,0,0,0,0,0,0,0],
+			[2,0,2,0,2,1,1,1,1,1,  									1,1,0,0,0,0,0,0,0,0],
 	
-			[0,1,0,0,0,0,1,0,0,0,  0,0,1,0,0,0,0,0,0,0], 
-			[0,1,0,0,0,0,0,0,0,0,  0,0,1,0,0,0,0,0,0,0],
-			[0,1,0,0,0,0,0,0,0,0,  0,0,1,1,1,0,0,0,0,0],
-			[0,1,0,0,0,0,0,0,0,0,  0,0,0,0,1,0,0,0,0,0],
-			[0,1,0,0,0,0,0,0,0,0,  0,0,0,0,1,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0]
+			[0,1,0,0,0,0,0,0,0,0,  									0,0,1,0,0,0,0,0,0,0], 
+			[0,1,0,0,0,0,0,0,0,0,  									0,0,1,0,0,0,0,0,0,0],
+			[0,1,0,0,0,0,0,0,0,0,  									0,0,1,1,1,0,0,0,0,0],
+			[0,1,0,0,0,0,0,0,0,0,  									0,0,0,0,1,0,0,0,0,0],
+			[0,1,0,0,0,0,0,0,0,0,  									0,0,0,0,1,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0,0,0,  									0,0,0,0,0,0,0,0,0,0]
 		  ];
 		 
 var floatValue = 10;
@@ -31,18 +31,24 @@ var mapHeightTiles = 6 * tileSize;
 var npcs = ["rosa", "amber", "redguard-left", "redguard-right", "orangeguard", "ray", "carrot", "scarlett", "vernon"];
 var timer;
 var isInTask = false;
-
+var walkableTiles = ["t", "l2"];
 //Needed for Rosa's tasks
 var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
 var rosaAnswers = ["green", "blue", "yellow", "purple"];
 var rosaCurrentTask = 0;
-var rosaDone = false;
+var rosaDone = true;//false;
 
 //Needed for Scarlett's tasks
 var scarlettClasses = ["purple-wall", "blue-wall", "yellow-wall", "green-wall", "red-wall"];
 var scarlettAnswers = ["red", "green", "blue", "yellow", "purple"];
 var scarlettCurrentTask = 0;
-var scarlettDone = false;
+var scarlettDone = true;//false;
+
+//Needed for Amber's task
+var amberClasses = ["bridge"];
+var amberAnswers = ["200%"];
+var amberCurrentTask = 0;
+var amberDone = false;
 
 function getTileClass(y,x){
 	var tileClass = "tile ";
@@ -55,20 +61,20 @@ function getTileClass(y,x){
 	else if(map[y][x] == 3){ //buildings
 		tileClass += "blank building-tile";
 	}
-	else if(typeof map[y][x] === 'string' && map[y][x] != "t") {
+	else if(typeof map[y][x] === 'string' && walkableTiles.indexOf(map[y][x]) == -1) {
 			tileClass += "blank " + map[y][x] + "-tile";
 	}
 	else{
-		if(map[y][x+1] != undefined && (map[y][x+1] ==1 || map[y][x+1] == "t")){
+		if(map[y][x+1] != undefined && (map[y][x+1] == 1 || walkableTiles.indexOf(map[y][x+1]) > -1)){
 			tileClass += "right-";
 		}
-		if(map[y][x-1] != undefined && (map[y][x-1] ==1 || map[y][x-1] == "t")){
+		if(map[y][x-1] != undefined && (map[y][x-1] == 1 || walkableTiles.indexOf(map[y][x-1]) > -1)){
 			tileClass += "left-";
 		}
-		if(map[y-1] != undefined && (map[y-1][x] == 1 || map[y-1][x] == "t")){
+		if(map[y-1] != undefined && (map[y-1][x] == 1 || walkableTiles.indexOf(map[y-1][x]) > -1)){
 			tileClass += "top-"
 		}
-		if(map[y+1] != undefined && (map[y+1][x] == 1 || map[y+1][x] == "t")){
+		if(map[y+1] != undefined && (map[y+1][x] == 1 || walkableTiles.indexOf(map[y+1][x]) > -1)){
 			tileClass += "bottom-";
 		}
 		tileClass += "open";
@@ -84,7 +90,7 @@ function getTileClass(y,x){
 function isWalkable(y,x){
 	if(y < 0 || y > map.length) return false;
 	else if (x < 0 || x > map[0].length) return false;
-	else return map[y][x] == 1 || map[y][x] == "t";
+	else return map[y][x] == 1 || map[y][x] == "t"|| map[y][x] == "g1" || map[y][x] == "g2"  || map[y][x] == "l2";
 }
 
 function floatPlayer(){
@@ -125,7 +131,13 @@ function drawMap(yCoord,xCoord){
 	$('.amber-tile').append('<div class="amber"></div>');
 	$('.redguard-right-tile').append('<div class="redguard-right"></div>');
 	$('.redguard-left-tile').append('<div class="redguard-left"></div>');
-	
+	$('.g1-tile').append('<div class="gate-lv1"></div>');
+	$('.w1-tile').append('<div class="water-tiles-01"></div>');
+	$('.w2-tile').append('<div class="water-tiles-02"></div>');
+	$('.w3-tile').append('<div class="water-tiles-03"></div>');
+	$('.w4-tile').append('<div class="water-tiles-04"></div>');
+	$('.w5-tile').append('<div class="water-tiles-05"></div>');
+	$('.b-tile').append('<div class="bridge"></div>');
 	var  assetColors = ["red", "blue", "green", "yellow", "purple"];
 	for(var i = 0; i < assetColors.length; i++) {
 		//4 types of Trees
@@ -154,6 +166,11 @@ function talk(pY, pX) {
 		if(map[pY+1] != undefined && npcs.indexOf(map[pY+1][pX]) > -1 && $("#player").hasClass('bottom')){
 			showDialog(characters[map[pY+1][pX]]);
 		}
+	}
+	
+	if(talkable == "l2") {
+		$('#world').removeClass('red');
+		$('#world').addClass('yellow');
 	}
 }
 
@@ -237,6 +254,38 @@ function scarlettTask() {
 	});
 }
 
+function amberTask() {
+	if(timer)
+		clearTimeout(timer);
+	
+	if(amberCurrentTask >= amberClasses.length) {
+		characters["amber"].hasTask = false;
+		isInTask = false;
+		closeDialog();
+		$('#task').hide();
+		
+		$('.b-tile').html('').append('<div class="bridge-100"></div>');
+
+		amberDone = true;
+		
+		return;
+	}
+	showTaskDialog(characters["amber"],characters["amber"].tasks[amberCurrentTask]);
+	$('#task').show();
+	$('#task').append('<img id="amberImage" src="bridge/' + amberClasses[amberCurrentTask] + '-50.png" height="400" width="400" />');
+	$('.content').html('.' + amberClasses[amberCurrentTask] + ' { <br />width:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
+	$('#answer').focus();
+	
+	$('#answer').on('keyup', function(e) {
+		if(!$(this).html())
+			$(this).html('&nbsp;');
+		if (e.keyCode == 13) {
+			e.preventDefault();
+			$("#submit").click();
+		}
+	});
+}
+
 function startTask() {
 	switch (characterName) {
 		case "Rosa Redrose":
@@ -247,6 +296,10 @@ function startTask() {
 			isInTask = true;
 			$('#programming-panel').css('font-size', '14px');
 			scarlettTask();
+			break;
+		case "Amber Dawn": 
+			isInTask = true;
+			amberTask();
 			break;
 		case "Guard of the Red Gate":
 			break;
@@ -313,8 +366,14 @@ $(document).keydown(function(e) {
 	}
 	var pY = ((positionY+offsetY)/tileSize); //0-5 + offsetY
 	var pX = ((positionX+offsetX)/tileSize); //0-9 + offsetX
-	//prevent keydown when still animating
+
+	//It's gross, but this will move ya up twice when ya go through the red gate
+	if(map[Math.ceil(pY)][Math.ceil(pX)] == "g1") {
+		positionY-=tileSize;
+		pY = ((positionY+offsetY)/tileSize);
+	}
 	
+	//prevent keydown when still animating
 	if(!animating && shouldAnimate && isWalkable(pY,pX)){
 		animating = true;
 		$("#player").animate({"top":positionY+"px","left":positionX+"px"},400,"linear",function(){
@@ -414,10 +473,32 @@ $(document).ready(function(){
 				}, 2000)
 			}
 		}
+		
+		//AMBER
+		if(rosaDone && scarlettDone) {
+			if(answer == amberAnswers[amberCurrentTask]){
+				$('#amberImage').attr('src', 'bridge/' + amberClasses[amberCurrentTask] + '-100.png');
+				showTaskDialog(characters["amber"],characters["amber"].positiveFeedback);
+				timer = setTimeout(function(){ 
+					amberCurrentTask++;
+					$('#task').html('');
+					amberTask();
+				}, 2000);  
+			}
+			else {
+				showTaskDialog(characters["amber"],characters["amber"].negativeFeedback);
+				setTimeout(function(){
+					showTaskDialog(characters["amber"],characters["amber"].tasks[amberCurrentTask]);
+					$('#answer').focus();
+				}, 600)
+			}
+		}
 	});
 	
 	//draw the board
-	drawMap(0,0);
+	offsetX = 1000;
+	offsetY = 600;
+	drawMap(offsetY/tileSize, offsetX/tileSize);
 	
 	//float the avatar thingy
 	floatPlayer();

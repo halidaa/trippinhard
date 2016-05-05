@@ -92,11 +92,20 @@ characters["redguard-left"] = {
 							]
 						};
 characters["amber"] = {
-							"name":"Amber Dawn",
-							"filename":"npc/amber",
-							"hometown":"yellow",
-							"hasTask":false
-						};
+						"name":"Amber Dawn",
+						"filename":"npc/amber",
+						"hometown":"yellow",
+						"hasTask":true,
+						"taskIntro":[
+							"If you're looking to cross the bridge, you'll need to increase the <i>width</i>!",
+							"Do you think you think you could somehow double the bridge's <i>width</i>?"
+						],
+						"tasks":[
+							"Double the width of the bridge!",
+						],
+						"positiveFeedback":"Great!",
+						"negativeFeedback":"Hm, not quite...but almost..."
+					};
 characters["carrot"] = {
 							"name":"Charles 'Carrot' Rodriguez",
 							"filename":"npc/carrot",

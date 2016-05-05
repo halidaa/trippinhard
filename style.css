@@ -316,7 +316,7 @@ body{
 	position:absolute;
 }
 .amber {
-	background:url(npc/amber-front.png);
+	background:url(npc/amber-left.png);
 	width:100px;
 	height:100px;
 	position:absolute;
@@ -362,7 +362,7 @@ body{
 	background:#f9d375 url(texture_yellow.png);
 }
 .tile.water{
-	
+	/* background:url(water/water-tiles-02.png); */
 }
 .tile.left-top-bottom-open{
 	background-position-x:-100px;
@@ -694,3 +694,67 @@ body{
 	position:absolute;
 }
 /********************  END HOUSES ********************/
+
+/********************  GATES ********************/
+.g1-tile {} 
+.gate-lv1 {
+	background:url(gates/gate-lv1.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+/******************** END GATES ********************/
+
+/********************  WATER ********************/
+.w1-tile {} 
+.w2-tile {} 
+.w3-tile {} 
+.w4-tile {} 
+.w5-tile {} 
+.water-tiles-01 {
+	background:url(water/water-tiles-01.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.water-tiles-02 {
+	background:url(water/water-tiles-02.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.water-tiles-03 {
+	background:url(water/water-tiles-03.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.water-tiles-04 {
+	background:url(water/water-tiles-04.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.water-tiles-05 {
+	background:url(water/water-tiles-05.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+/******************** END WATER ********************/
+
+/******************** BRIDGE ********************/
+.b-tile {} 
+.bridge {
+	background:url(bridge/bridge-50.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+.bridge-100 {
+	background:url(bridge/bridge-100.png);
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+/******************** END BRIDGE ********************/
