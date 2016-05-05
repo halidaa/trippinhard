@@ -746,7 +746,8 @@ body{
 
 /******************** BRIDGE ********************/
 .b-tile {} 
-.bridge {
+.bw-tile {}
+.bridge-50 {
 	background:url(bridge/bridge-50.png);
 	width:100px;
 	height:100px;

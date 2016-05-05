@@ -1,10 +1,10 @@
 var tileSize = 100;
-var map = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  			1,1,1,0,0,0,0,0,0,0],
-			[0,"h1y",0,"h2y",0,"h3y",0,"t1p","t3b","t1y",  			0,1,0,0,0,0,0,0,0,0],
-			[0,1,1,1,1,1,1,1,1,1,  									0,1,1,1,1,1,1,1,1,1],
-			[0,1,0,"h3r","rosa","t1r","t2r","t3r","t4r",1,  		"w1","b","w2","w3","w4","w5","w1","w2","w3","w4"],
-			[0,1,1,1,"t",1,1,1,1,1,  								0,"t","amber",0,0,0,0,0,0,0],
-			[0,1,0,0,0,0,0,0,0,0,  									0,"l2",0,0,0,0,0,0,0,0], 
+var map = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  			1,1,1,0,0,0,0,0,0,0,		0,1,0,0,0,0,0,0,0,0],
+			[0,"h1y",0,"h2y",0,"h3y",0,"t1p","t3b","t1y",  			0,1,0,0,0,0,0,0,0,0,		0,1,0,0,0,0,0,0,0,0],
+			[0,1,1,1,1,1,1,1,1,1,  									0,1,1,1,1,1,1,1,1,1,		1,1,0,0,0,0,0,0,0,0],
+			[0,1,0,"h3r","rosa","t1r","t2r","t3r","t4r",1,  		"w1","b","w2","w3","w4","w5","w1","w2","w3","w4",		0,1,0,0,0,0,0,0,0,0],
+			[0,1,1,1,"t",1,1,1,1,1,  								0,"t","amber",0,0,0,0,0,0,0,		0,1,0,0,0,0,0,0,0,0],
+			[0,1,0,0,0,0,0,0,0,0,  									0,"l2",0,0,0,0,0,0,0,0,		0,1,0,0,0,0,0,0,0,0], 
 			
 			[0,1,0,0,0,0,"h1p","h2r","h3r",0,  						0,"g1",0,0,0,0,0,0,0,0],
 			[0,1,1,0,2,0,"h1g","h2b","h3g",0,  						"redguard-right","t","redguard-left",0,0,0,0,0,0,0],
@@ -83,6 +83,9 @@ function getTileClass(y,x){
 	if(map[y][x] == "t"){ //talk space
 		tileClass += " talk-tile";
 	}
+	if(map[y][x] == "bw"){ //talk space
+		tileClass = "tile bw-tile";
+	}
 	
 	return tileClass;
 }
@@ -153,7 +156,8 @@ function drawMap(yCoord,xCoord){
 	$('.w3-tile').append('<div class="water-tiles-03"></div>');
 	$('.w4-tile').append('<div class="water-tiles-04"></div>');
 	$('.w5-tile').append('<div class="water-tiles-05"></div>');
-	$('.b-tile').append('<div class="bridge"></div>');
+	$('.b-tile').append('<div class="bridge-50"></div>');
+	$('.bw-tile').append('<div class="bridge-100"></div>');
 	var  assetColors = ["red", "blue", "green", "yellow", "purple"];
 	for(var i = 0; i < assetColors.length; i++) {
 		//4 types of Trees
