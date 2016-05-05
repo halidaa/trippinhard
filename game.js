@@ -383,6 +383,7 @@ $(document).ready(function(){
 				}
 				setTimeout(function(){
 					showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
+					$('#answer').text("");
 					$('#answer').focus();
 				}, 2000)
 			}
@@ -408,6 +409,7 @@ $(document).ready(function(){
 				}
 				setTimeout(function(){
 					showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
+					$('#answer').text("");
 					$('#answer').focus();
 				}, 2000)
 			}
