@@ -81,6 +81,19 @@ characters["vernon"] = {
 							"hometown":"red",
 							"hasTask":false
 						};
+characters["schmo"] = {
+							"name":"Schme Schmo",
+							"filename":"npc/schmo",
+							"hometown":"dark-gray",
+							"hasTask":true,
+							"taskIntro":[
+								"Welcome to material!",
+								"In this place, everything can be modified with CSS",
+								"On your left, you'll find the console for you to write your code.",
+								"But! You can only use it when you have a task.",
+								"Try talking to people to get the tasks and find your way home."
+							],
+						};
 characters["redguard-right"] = {
 							"name":"Guard of the Red Gate",
 							"filename":"npc/redguard",

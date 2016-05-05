@@ -482,6 +482,9 @@ function startTask() {
 			break;
 		case "Guard of the Red Gate":
 			break;
+		case "Schme Schmo":
+			closeDialog();
+			break;
 	}
 }
 
