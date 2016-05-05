@@ -29,13 +29,19 @@ characters["rosa"] = {
 							"Do you think you could help me change the <i>color</i> of these trees?"
 						],
 						"tasks":[
-							"Let's change tree-01 <i>color</i> to green.",
-							"Let's change tree-02 <i>color</i> to blue.",
-							"Let's change tree-03 <i>color</i> to yellow.",
-							"Let's change tree-04 <i>color</i> to purple."
+							"Let's change <b>tree-01</b> <i>color</i> to <u>green</u>.",
+							"Let's change <b>tree-02</b> <i>color</i> to <u>blue</u>.",
+							"Let's change <b>tree-03</b> <i>color</i> to <u>yellow</u>.",
+							"Let's change <b>tree-04</b> <i>color</i> to <u>purple</u>."
 						],
 						"positiveFeedback":"Great!",
-						"negativeFeedback":["Hm, not quite...but almost...","That's not the color I want though :("]
+						"negativeFeedback":[
+							"Hmmm, try just inputting the name of the color that's underlined in my text.",
+							"That's not the color I want though :(",
+							"Don't forget to include <i>color</i>.",
+							"Don't forget to add a ':' between the property name and property value!",
+							"Hmmm, try formatting it like 'color: your_color'."
+						]
 					};
 characters["scarlett"] = {
 							"name":"Scarlett Firework",
@@ -48,18 +54,26 @@ characters["scarlett"] = {
 								"Can you help me paint these houses back to their original <i>background-color</i>?"
 							],
 							"tasks":[
-								"Let's paint this purple-wall red again.",
-								"Let's paint this blue-wall green again.",
-								"Let's paint this yellow-wall blue again.",
-								"Let's paint this green-wall yellow again.",
-								"Let's paint this red-wall purple again.",
+								"Let's paint this <b>purple-wall</b> to have a <u>red</u> <i>background-color</i> again.",
+								"Let's paint this <b>blue-wall</b> to have a  <u>green</u> <i>background-color</i> again.",
+								"Let's paint this <b>yellow-wall</b> to have a  <u>blue</u> <i>background-color</i> again.",
+								"Let's paint this <b>green-wall</b> to have a  <u>yellow</u> <i>background-color</i> again.",
+								"Let's paint this <b>red-wall</b> to have a <u>purple</u> <i>background-color</i> again.",
 							],
 							"hasRequirement": !rosaDone,
 							"requirement": [
 								"I think you should help Rosa up above before assisting me."
 							],
 							"positiveFeedback":"Great!",
-							"negativeFeedback":["Hm, not quite...but almost...","That's not the color I want though :("]
+							"negativeFeedback":[
+								"Looks like you forgot to put a '.' before the class name.",
+								"Don't forget to include the class name that I'm stating in bold!",
+								"Don't forget to include <i>background-color</i>.",
+								"Don't forget to add a ':' between the property name and property value!",
+								"Looks like you didn't include the correct background-color I want.",
+								"Don't forget to add a ';' after your property value.",
+								"Hmmm, try formatting it like 'background-color: your_color'."
+							]
 						};
 characters["vernon"] = {
 							"name":"Vernon Vermilion",
@@ -92,23 +106,67 @@ characters["redguard-left"] = {
 							]
 						};
 characters["amber"] = {
-							"name":"Amber Dawn",
-							"filename":"npc/amber",
-							"hometown":"yellow",
-							"hasTask":false
-						};
+						"name":"Amber Dawn",
+						"filename":"npc/amber",
+						"hometown":"yellow",
+						"hasTask":true,
+						"taskIntro":[
+							"If you're looking to cross the bridge, you'll need to increase the <i>width</i>!",
+							"Do you think you think you could somehow double the bridge's <i>width</i>?"
+						],
+						"tasks":[
+							"The <i>width</i> of the <b>bridge</b> is currently 100%, can you double it so we can cross?",
+						],
+						"positiveFeedback":"Great!",
+						"negativeFeedback":[
+								"Looks like you forgot to put a '.' before the class name.",
+								"Don't forget to include the class name that I'm stating in bold!",
+								"Ooo, can't forget to include the '{' after the class name.",
+								"Don't forget to include <i>width</i>.",
+								"Don't forget to add a ':' between the property name and property value!",
+								"Looks like you didn't make the bridge double it's current 100% width.",
+								"Don't forget to include a '%' following your width's value.",
+								"Don't forget to add a ';' after your property value.",
+								"Ooo, can't forget to include the '}' at the end!",
+								"Hmmm, try formatting it like 'width: your_width%'."
+							]
+					};
 characters["carrot"] = {
-							"name":"Charles 'Carrot' Rodriguez",
-							"filename":"npc/carrot",
-							"hometown":"yellow",
-							"hasTask":false
-						};
+						"name":"Charles 'Carrot' Rodriguez",
+						"filename":"npc/carrot",
+						"hometown":"yellow",
+						"hasTask":true,
+						"taskIntro":[
+							"Hey, I saw what you did to that bridge, it was incredible!",
+							"Do you think you think you could help me out with my <i>height</i>?"
+						],
+						"tasks":[
+							"Could you make me four times taller!",
+						],
+						"positiveFeedback":"Great!",
+						"negativeFeedback":"Hm, not quite...but almost..."
+					};
 characters["ray"] = {
 						"name":"Ray Sunshine",
 						"filename":"npc/ray",
 						"hometown":"yellow",
 						"hasTask":false
 					};
+characters["dragon"] = {
+						"name":"Trogdor",
+						"filename":"npc/dragon",
+						"hometown":"yellow",
+						"hasTask":true,
+						"taskIntro":[
+							"STOP! You cannot escape past me!",
+							"At my current <i>width</i> and <i>height</i> you'll be not match for me!"
+						],
+						"tasks":[
+							"TODO",
+						],
+						"positiveFeedback":"Noooooooooooooo",
+						"negativeFeedback":"Ha, ha, ha that won't work on me!"
+					};					
 characters["orangeguard"] = {
 								"name":"Guard of the Orange Gate",
 								"filename":"npc/orangeguard",
