@@ -1,16 +1,16 @@
 var tileSize = 100;
-var map = [	[0,0,"h1p",0,"h2r",0,"h3y","t2y","t1g","t4p",  1,1,1,0,0,0,0,0,0,0],
-			[0,"h2y",0,"h3g",0,"h1b",0,"t1p","t3b","t1y",  0,1,0,0,0,0,0,0,0,0],
+var map = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  1,1,1,0,0,0,0,0,0,0],
+			[0,"h1y",0,"h2y",0,"h3y",0,"t1p","t3b","t1y",  0,1,0,0,0,0,0,0,0,0],
 			[0,1,1,1,1,1,1,1,1,1,  0,1,1,1,1,1,1,1,1,1],
-			[0,1,0,0,"rosa","t1r","t2r","t3r","t4r",1,  0,1,0,0,0,0,0,0,0,0],
+			[0,1,0,"h3r","rosa","t1r","t2r","t3r","t4r",1,  0,1,0,0,0,0,0,0,0,0],
 			[0,1,1,1,"t",1,1,1,1,1,  0,1,0,0,0,0,0,0,0,0],
 			["redguard-right","t","redguard-left",0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0], 
 			
-			[0,1,0,0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0],
-			[0,1,1,0,2,0,0,3,0,0,  0,0,0,0,0,0,0,0,0,0],
-			[0,0,1,"t","scarlett",0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,1,1,0,0,"amber","vernon",0,  "rosa",0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,1,1,0,0,0,0,  "t",0,0,0,0,0,0,0,0,0],
+			[0,1,0,0,0,0,"h1p","h2r","h3r",0,  0,0,0,0,0,0,0,0,0,0],
+			[0,1,1,0,2,0,"h1g","h2b","h3g",0,  0,0,0,0,0,0,0,0,0,0],
+			[0,0,1,"t","scarlett",0,"h1y","h2b","h3b",0,  0,0,0,0,0,0,0,0,0,0],
+			[0,0,0,1,1,0,"h1y","h2y","h3g",0,  "rosa",0,0,0,0,0,0,0,0,0],
+			[0,0,0,0,1,1,"h1p","h2r","h3p",0,  "t",0,0,0,0,0,0,0,0,0],
 			[2,0,2,0,2,1,1,1,1,1,  1,0,0,0,0,0,0,0,0,0],
 	
 			[0,1,0,0,0,0,1,0,0,0,  0,0,1,0,0,0,0,0,0,0], 
@@ -34,13 +34,15 @@ var isInTask = false;
 
 //Needed for Rosa's tasks
 var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
-var rosaAnswers = ["blue", "green", "yellow", "purple"];
+var rosaAnswers = ["green", "blue", "yellow", "purple"];
 var rosaCurrentTask = 0;
+var rosaDone = false;
 
 //Needed for Scarlett's tasks
-var scarlettClasses = ["DOOR", "WALL", "FENCES"];
-var scarlettAnswers = ["brown", "white", "red"];
+var scarlettClasses = ["purple-wall", "blue-wall", "yellow-wall", "green-wall", "red-wall"];
+var scarlettAnswers = ["red", "green", "blue", "yellow", "purple"];
 var scarlettCurrentTask = 0;
+var scarlettDone = false;
 
 function getTileClass(y,x){
 	var tileClass = "tile ";
@@ -126,11 +128,11 @@ function drawMap(yCoord,xCoord){
 	
 	var  colors = ["red", "blue", "green", "yellow", "purple"];
 	for(var i = 0; i < colors.length; i++) {
-		//Trees
-		for(var t = 1; t < 5; t++) {
+		//4 types of Trees
+		for(var t = 1; t < 5; t++) { 
 			$('.t' + t + colors[i][0] + '-tile').append('<div class="tree-0' + t + '-' + colors[i] + '"></div>');
 		}
-		//Houses
+		//3 types of Houses
 		for(var h = 1; h < 4; h++) {
 			$('.h' + h + colors[i][0] + '-tile').append('<div class="house-0' + h + '-' + colors[i] + '"></div>');
 		}
@@ -160,16 +162,20 @@ function rosaTask() {
 		clearTimeout(timer);
 	
 	if(rosaCurrentTask >= rosaClasses.length) {
-
 		characters["rosa"].hasTask = false;
+		isInTask = false;
 		closeDialog();
 		$('#task').hide();
-		isInTask = false;
 		
-		$('.t1r-tile').html('').append('<div class="tree-01-blue"></div>');
-		$('.t2r-tile').html('').append('<div class="tree-02-green"></div>');
+		$('.t1r-tile').html('').append('<div class="tree-01-green"></div>');
+		$('.t2r-tile').html('').append('<div class="tree-02-blue"></div>');
 		$('.t3r-tile').html('').append('<div class="tree-03-yellow"></div>');
 		$('.t4r-tile').html('').append('<div class="tree-04-purple"></div>');
+		map[3][5] = "t1g";
+		map[3][6] = "t2b";
+		map[3][7] = "t3y";
+		map[3][8] = "t4p";
+		rosaDone = true;
 		
 		return;
 	}
@@ -196,14 +202,28 @@ function scarlettTask() {
 	
 	if(scarlettCurrentTask >= scarlettClasses.length) {
 		characters["scarlett"].hasTask = false;
+		isInTask = false;
 		closeDialog();
 		$('#task').hide();
-		isInTask = false;
+		
+		$('.h1p-tile[data-x="6"][data-y="6"]').html('').append('<div class="house-01-red"></div>');
+		$('.h2b-tile[data-x="7"][data-y="7"]').html('').append('<div class="house-02-green"></div>');
+		$('.h1y-tile[data-x="6"][data-y="8"]').html('').append('<div class="house-01-blue"></div>');
+		$('.h3g-tile[data-x="8"][data-y="9"]').html('').append('<div class="house-03-yellow"></div>');
+		$('.h2r-tile[data-x="7"][data-y="10"]').html('').append('<div class="house-02-purple"></div>');
+		map[6][6] = "h1r";
+		map[7][7] = "h2g";
+		map[8][6] = "h1b";
+		map[9][8] = "h3y";
+		map[10][7] = "h2p";
+
+		scarlettDone = true;
+		
 		return;
 	}
 	showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
 	$('#task').show();
-	$('#task').append('<img id="scarlettImage" src="' + scarlettClasses[scarlettCurrentTask] + '.png" />');
+	$('#task').append('<img id="scarlettImage" src="walls/' + scarlettClasses[scarlettCurrentTask] + '.png" height="400" width="400" />');
 	$('.content').html('.' + scarlettClasses[scarlettCurrentTask] + ' { <br />background-color:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
 	$('#answer').focus();
 	
@@ -297,35 +317,35 @@ $(document).keydown(function(e) {
 	
 	if(!animating && shouldAnimate && isWalkable(pY,pX)){
 		animating = true;
-		$("#player").animate({"top":positionY+"px","left":positionX+"px"},400,function(){
+		$("#player").animate({"top":positionY+"px","left":positionX+"px"},1,"linear",function(){
 			animating = false;
 			
 			if(right && pX % (mapWidthTiles/tileSize) == 0) {
 				offsetX += mapWidthTiles;
-				$('#map').children('.row').remove()
+				$('#map').children('.row').remove();
 				drawMap(offsetY/tileSize, offsetX/tileSize);
 				$("#player").css({"top":positionY+"px","left":"0px"});
 				positionX = 0;
 			}
 			if(left && (pX+1) % (mapWidthTiles/tileSize) == 0) {
 				offsetX -= mapWidthTiles;
-				$('#map').children('.row').remove()
+				$('#map').children('.row').remove();
 				drawMap(offsetY/tileSize, offsetX/tileSize);
-				var leftOffset = mapWidthTiles - tileSize
+				var leftOffset = mapWidthTiles - tileSize;
 				$("#player").css({"top":positionY+"px","left":leftOffset+"px"});
 				positionX = leftOffset;
 			}
 			
 			if(down && pY % (mapHeightTiles/tileSize) == 0) {
 				offsetY += mapHeightTiles;
-				$('#map').children('.row').remove()
+				$('#map').children('.row').remove();
 				drawMap(offsetY/tileSize, offsetX/tileSize);
 				$("#player").css({"top":"0px","left":positionX+"px"});
 				positionY = 0;
 			}
 			if(up && (pY+1) % (mapHeightTiles/tileSize) == 0) {
 				offsetY -= mapHeightTiles;
-				$('#map').children('.row').remove()
+				$('#map').children('.row').remove();
 				drawMap(offsetY/tileSize, offsetX/tileSize);
 				var topOffset = mapHeightTiles - tileSize;
 				$("#player").css({"top":topOffset+"px","left":positionX+"px"});
@@ -343,7 +363,7 @@ $(document).ready(function(){
 		var answer = $('#answer').html().replace('&nbsp;', '').replace('<br>', '').trim();
 		
 		//ROSA
-		if(!(rosaCurrentTask >= rosaClasses.length)) {
+		if(!rosaDone) {
 			if(answer == rosaAnswers[rosaCurrentTask]){
 				$('#rosaImage').attr('src', 'trees/' + rosaClasses[rosaCurrentTask].replace('red', rosaAnswers[rosaCurrentTask]) + '.png');
 				showTaskDialog(characters["rosa"],characters["rosa"].positiveFeedback);
@@ -364,9 +384,9 @@ $(document).ready(function(){
 		}
 		
 		//SCARLETT
-		if(!(scarlettCurrentTask >= scarlettClasses.length) && (rosaCurrentTask >= rosaClasses.length)) {
+		if(rosaDone && !scarlettDone) {
 			if(answer == scarlettAnswers[scarlettCurrentTask]){
-				$('#scarlettImage').attr('src', scarlettClasses[scarlettCurrentTask] + '_DONE.png');
+				$('#scarlettImage').attr('src', 'walls/' + scarlettClasses[scarlettCurrentTask] + '-done.png');
 				showTaskDialog(characters["scarlett"],characters["scarlett"].positiveFeedback);
 				timer = setTimeout(function(){ 
 					//TODO: Dialog
