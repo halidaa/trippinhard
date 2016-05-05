@@ -48,6 +48,7 @@ body{
 	width:100px;
 	height:100px;
 	margin:-2px;
+	z-index: 5;
 }
 #player .companion{
 	height:20px;
@@ -756,5 +757,6 @@ body{
 	width:100px;
 	height:100px;
 	position:absolute;
+	z-index: 4;
 }
 /******************** END BRIDGE ********************/

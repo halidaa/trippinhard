@@ -31,7 +31,7 @@ var mapHeightTiles = 6 * tileSize;
 var npcs = ["rosa", "amber", "redguard-left", "redguard-right", "orangeguard", "ray", "carrot", "scarlett", "vernon"];
 var timer;
 var isInTask = false;
-var walkableTiles = ["t", "l2"];
+var walkableTiles = ["t", "l2", "bw"];
 //Needed for Rosa's tasks
 var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
 var rosaAnswers = ["green", "blue", "yellow", "purple"];
@@ -90,7 +90,7 @@ function getTileClass(y,x){
 function isWalkable(y,x){
 	if(y < 0 || y > map.length) return false;
 	else if (x < 0 || x > map[0].length) return false;
-	else return map[y][x] == 1 || map[y][x] == "t"|| map[y][x] == "g1" || map[y][x] == "g2"  || map[y][x] == "l2";
+	else return map[y][x] == 1 || walkableTiles.indexOf(map[y][x]) > -1;
 }
 
 function floatPlayer(){
@@ -265,7 +265,7 @@ function amberTask() {
 		$('#task').hide();
 		
 		$('.b-tile').html('').append('<div class="bridge-100"></div>');
-
+		map[3][11] = "bw";
 		amberDone = true;
 		
 		return;
