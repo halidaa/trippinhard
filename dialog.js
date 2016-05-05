@@ -81,6 +81,20 @@ characters["vernon"] = {
 							"hometown":"red",
 							"hasTask":false
 						};
+characters["schmo"] = {
+							"name":"Schme Schmo",
+							"filename":"npc/schmo",
+							"hometown":"dark-gray",
+							"hasTask":true,
+							"taskIntro":[
+								"Welcome to material!",
+								"I guess you went a bit too hard on that trip.. But hey! You're here! Much fun.",
+								"Everything here can be modified with CSS, pretty sweet, right?",
+								"On your left, you'll find the console for you to write some CSS.",
+								"But! You can only use it when you have a task.",
+								"Try talking to people to get the tasks and find your way home."
+							],
+						};
 characters["redguard-right"] = {
 							"name":"Guard of the Red Gate",
 							"filename":"npc/redguard",
@@ -241,7 +255,7 @@ function closeDialog(){
 		currentLines = [];
 		currentIdx = 0;
 		$("#speech-panel-wrapper .panel").animate({"bottom":"-100%"},400,function(){
-			$("#speech-panel-wrapper").fadeOut();
+			$("#speech-panel-wrapper").removeClass().fadeOut();
 			isOnDialog = false;
 		})
 	}

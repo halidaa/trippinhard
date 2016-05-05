@@ -17,7 +17,7 @@ var realMap = [	[0,0,"h1p",0,"h2p",0,"h3p","t2y","t1g","t4p",  			1,1,1,0,0,0,0,
 var map = [
 	["t3b",0,0,0,0,0,0,0,"t3p",0,									1,1,1,0,0,0,0,"c1",0,0,										0,0,0,0,0,"c1","g2","c1",0,0],
 	[0,"vernon","t2b",0,"t2p","h3p",0,0,0,0,						0,0,1,"s1",0,0,0,0,"carrot",0,								0,"c1",0,0,"c1","d2","dragon",0,"c1",0],
-	[0,"t",1,1,1,1,0,"t4r","t2r",0,									0,0,1,1,1,1,"t",1,1,1,										1,1,1,0,0,"d1","t","w2","w1","w3"],
+	[0,"t",1,1,1,1,0,"t4r","t2r",0,									0,0,1,1,1,1,1,1,"t",1,										1,1,1,0,0,"d1","t","w2","w1","w3"],
 	[0,1,0,0,0,1,"rosa","h2r","t3r","t1r",							"w4","w1","w2","w4","b","w5","w1","w2","w3","w4",			"w1","w1","bw","w2","w1","w1",1,"w2","w1","w1"],
 	[0,1,"h2y","t2y",0,1,"t",1,1,1,									0,0,0,0,"t","amber",0,0,0,0,								0,0,1,0,"c1",0,1,"w1","w3","w4"],
 	["t4g",1,0,0,0,0,0,0,0,1,										0,"c1",0,0,"l2",0,"c1",0,0,0,								0,0,1,1,1,1,1,0,0,0],
@@ -487,6 +487,9 @@ function startTask() {
 			break;
 		case "Guard of the Red Gate":
 			break;
+		case "Schme Schmo":
+			closeDialog();
+			break;
 	}
 }
 
@@ -951,4 +954,7 @@ $(document).ready(function(){
 	
 	//make the companion fly around
 	animateCompanion();
+	
+	//show schmo's intro
+	showDialog(characters["schmo"]);
 })
