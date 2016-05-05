@@ -39,7 +39,7 @@ characters["rosa"] = {
 							"Hmmm, try just inputting the name of the color that's underlined in my text.",
 							"That's not the color I want though :(",
 							"Don't forget to include <i>color</i>.",
-							"Don't forget to add a : between the property name and property value!",
+							"Don't forget to add a ':' between the property name and property value!",
 							"Hmmm, try formatting it like 'color: your_color'."
 						]
 					};
@@ -54,18 +54,25 @@ characters["scarlett"] = {
 								"Can you help me paint these houses back to their original <i>background-color</i>?"
 							],
 							"tasks":[
-								"Let's paint this purple-wall red again.",
-								"Let's paint this blue-wall green again.",
-								"Let's paint this yellow-wall blue again.",
-								"Let's paint this green-wall yellow again.",
-								"Let's paint this red-wall purple again.",
+								"Let's paint this <b>purple-wall</b> to have a <u>red</u> <i>background-color</i> again.",
+								"Let's paint this <b>blue-wall</b> to have a  <u>green</u> <i>background-color</i> again.",
+								"Let's paint this <b>yellow-wall</b> to have a  <u>blue</u> <i>background-color</i> again.",
+								"Let's paint this <b>green-wall</b> to have a  <u>yellow</u> <i>background-color</i> again.",
+								"Let's paint this <b>red-wall</b> to have a <u>purple</u> <i>background-color</i> again.",
 							],
 							"hasRequirement": !rosaDone,
 							"requirement": [
 								"I think you should help Rosa up above before assisting me."
 							],
 							"positiveFeedback":"Great!",
-							"negativeFeedback":["Hm, not quite...but almost...","That's not the color I want though :("]
+							"negativeFeedback":[
+								"Looks like you forgot to put a '.' before the class name.",
+								"Don't forget to include the class name that I'm stating in bold!",
+								"Don't forget to include <i>background-color</i>.",
+								"Don't forget to add a ':' between the property name and property value!",
+								"Looks like you didn't include the correct background-color I want.",
+								"Don't forget to add a ';' after your property value.",
+								"Hmmm, try formatting it like 'background-color: your_color'."]
 						};
 characters["vernon"] = {
 							"name":"Vernon Vermilion",

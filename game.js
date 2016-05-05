@@ -37,7 +37,7 @@ var walkableTiles = ["t", "l2", "bw", "dragon", "g2"];
 var rosaClasses = ["tree-01-red", "tree-02-red", "tree-03-red", "tree-04-red"];
 var rosaAnswers = ["green", "blue", "yellow", "purple"];
 var rosaCurrentTask = 0;
-var rosaDone = false;
+var rosaDone = true;
 
 //Needed for Scarlett's tasks
 var scarlettClasses = ["purple-wall", "blue-wall", "yellow-wall", "green-wall", "red-wall"];
@@ -256,7 +256,7 @@ function rosaTask() {
 	showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
 	$('#task').show();
 	$('#task').append('<img id="rosaImage" src="trees/task-' + rosaClasses[rosaCurrentTask] + '.png" height="400" width="400" />');
-	if(rosaCurrentTask < 3) {
+	if(rosaCurrentTask < 2) {
 		$('.content').html('.' + rosaClasses[rosaCurrentTask].replace('-red','') + ' { <br />' + 
 						   '&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;<input type="text" id="answer" placeholder="__________">;<br />}');
 	}
@@ -304,14 +304,21 @@ function scarlettTask() {
 	showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
 	$('#task').show();
 	$('#task').append('<img id="scarlettImage" src="walls/' + scarlettClasses[scarlettCurrentTask] + '.png" height="400" width="600" />');
-	$('.content').html('<input type="text" id="partOne" name="partOne" placeholder=".'+ scarlettClasses[scarlettCurrentTask] +' {"> <br />' +
-						   '<input type="text"  id="partTwo" name="partTwo" placeholder="background-color: your_answer;"> <br />' +
-						   '<input type="text"  id="partThree" name="partThree" placeholder="st">');
+	if(scarlettCurrentTask < 3) {
+		$('.content').html('.'+ scarlettClasses[scarlettCurrentTask] +' { <br />' +
+							   '<input type="text" class="scarlettTaskAnswers" id="answer" name="partTwo" placeholder="background-color:&nbsp;_____;"> <br />' +
+						   '}');
+	}
+	else {
+		$('.content').html('<input type="text" class="scarlettTaskAnswers" id="partOne" name="partTwo" placeholder=".'+ scarlettClasses[scarlettCurrentTask] +'"> { <br />' +
+						   '<input type="text" class="scarlettTaskAnswers" id="partTwo" name="partTwo" placeholder="background-color:&nbsp;_____;"> <br />' +
+					   '}');
+	}
 	//'.' + scarlettClasses[scarlettCurrentTask] + ' { <br />background-color:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />}')
 	
 	$('#answer').focus();
 	
-	$('#answer').on('keyup', function(e) {
+	$('.scarlettTaskAnswers').on('keyup', function(e) {
 		if(!$(this).html())
 			$(this).html('&nbsp;');
 		if (e.keyCode == 13) {
@@ -575,13 +582,12 @@ $(document).keydown(function(e) {
 $(document).ready(function(){
 	$('#task').hide();
 	$('#submit').on('click', function() {
-		var answer = $('#answer').html().replace('&nbsp;', '').replace('<br>', '').trim();
 		var possibleColors = ["red","yellow","blue","purple","green","pink","white","black","brown","aqua","orange","coral","violet"];
 		
 		//ROSA
 		if(!rosaDone) {
 			var answer = $('#answer').val().split('&nbsp;').join('').split('<br>').join('').trim();
-			if(rosaCurrentTask < 3) {
+			if(rosaCurrentTask < 2) {
 				if(answer == rosaAnswers[rosaCurrentTask]){
 					$('#rosaImage').attr('src', 'trees/task-' + rosaClasses[rosaCurrentTask].replace('red', rosaAnswers[rosaCurrentTask]) + '.png');
 					showTaskDialog(characters["rosa"],characters["rosa"].positiveFeedback);
@@ -590,7 +596,7 @@ $(document).ready(function(){
 						rosaCurrentTask++;
 						$('#task').html('');
 						rosaTask();
-					}, 2000);  
+					}, 3000);  
 				}
 				else {
 					if(possibleColors.indexOf(answer) > -1){
@@ -605,7 +611,7 @@ $(document).ready(function(){
 					}, 3000)
 				}
 			}
-			else if (rosaCurrentTask >= 3) {
+			else if (rosaCurrentTask >= 2) {
 				answer = answer.split(' ').join('');
 				if(answer == ('color:'+rosaAnswers[rosaCurrentTask])){
 					$('#rosaImage').attr('src', 'trees/task-' + rosaClasses[rosaCurrentTask].replace('red', rosaAnswers[rosaCurrentTask]) + '.png');
@@ -615,7 +621,7 @@ $(document).ready(function(){
 						rosaCurrentTask++;
 						$('#task').html('');
 						rosaTask();
-					}, 2000);  
+					}, 3000);  
 				}
 				else {
 					if(answer.indexOf('color') == -1){
@@ -633,48 +639,98 @@ $(document).ready(function(){
 					}, 3000)
 				}
 			}
-			else {
-				if(possibleColors.indexOf(answer) > -1){
-					showTaskDialog(characters["rosa"],characters["rosa"].negativeFeedback[1]);
-				}else{
-					showTaskDialog(characters["rosa"],characters["rosa"].negativeFeedback[0]);
-				}
-				setTimeout(function(){
-					showTaskDialog(characters["rosa"],characters["rosa"].tasks[rosaCurrentTask]);
-					$('#answer').text("");
-					$('#answer').focus();
-				}, 3000)
-			}
 		}
 		
 		//SCARLETT
 		if(rosaDone && !scarlettDone) {
-			if(answer == scarlettAnswers[scarlettCurrentTask]){
-				$('#scarlettImage').attr('src', 'walls/' + scarlettClasses[scarlettCurrentTask] + '-done.png');
-				showTaskDialog(characters["scarlett"],characters["scarlett"].positiveFeedback);
-				timer = setTimeout(function(){ 
-					//TODO: Dialog
-					scarlettCurrentTask++;
-					$('#task').html('');
-					scarlettTask();
-				}, 2000);  
-			}
-			else if(rosaDone) {
-				if(possibleColors.indexOf(answer) > -1){
-					showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[1]);
-				}else{
-					showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[0]);
+			if(scarlettCurrentTask < 3) {
+				var answer = $('#answer').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); //reallllly chopping up this answer lol
+				if(answer == ('background-color:'+scarlettAnswers[scarlettCurrentTask]+';')){
+					$('#scarlettImage').attr('src', 'walls/' + scarlettClasses[scarlettCurrentTask] + '-done.png');
+					showTaskDialog(characters["scarlett"],characters["scarlett"].positiveFeedback);
+					timer = setTimeout(function(){ 
+						//TODO: Dialog
+						scarlettCurrentTask++;
+						$('#task').html('');
+						scarlettTask();
+					}, 3000);  
 				}
-				setTimeout(function(){
-					showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
-					$('#answer').text("");
-					$('#answer').focus();
-				}, 2000)
+				else {
+					if(answer.indexOf('background-color') == -1){
+						showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[2]); //forgot 'background-color'
+					}else if (answer.indexOf(':') == -1){
+						showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[3]); //forgot ':'
+					}
+					else if (answer.indexOf(scarlettAnswers[scarlettCurrentTask]) == -1){
+						showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[4]); //forgot the correct background-color
+					}
+					else if (answer.indexOf(';') == -1){
+						showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[5]); //forgot ';'
+					}
+					else {
+						showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[6]); //catch all
+					}
+					setTimeout(function(){
+						showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
+						$('#answer').text("");
+						$('#answer').focus();
+					}, 3000);
+				}
+			}
+			else if (scarlettCurrentTask >= 3) {
+				var partOne = $('#partOne').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+				var partTwo = $('#partTwo').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+				if(partOne == ('.' + scarlettClasses[scarlettCurrentTask])) {
+					if(partTwo == ('background-color:'+scarlettAnswers[scarlettCurrentTask]+';')){
+						$('#scarlettImage').attr('src', 'walls/' + scarlettClasses[scarlettCurrentTask] + '-done.png');
+						showTaskDialog(characters["scarlett"],characters["scarlett"].positiveFeedback);
+						timer = setTimeout(function(){ 
+							//TODO: Dialog
+							scarlettCurrentTask++;
+							$('#task').html('');
+							scarlettTask();
+						}, 3000);  
+					}
+					else {
+						if(partTwo.indexOf('background-color') == -1){
+							showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[2]); //forgot 'background-color'
+						}else if (partTwo.indexOf(':') == -1){
+							showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[3]); //forgot ':'
+						}
+						else if (partTwo.indexOf(scarlettAnswers[scarlettCurrentTask]) == -1){
+							showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[4]); //forgot the correct background-color
+						}
+						else if (partTwo.indexOf(';') == -1){
+							showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[5]); //forgot ';'
+						}
+						else {
+							showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[6]); //catch all
+						}
+						setTimeout(function(){
+							showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
+							$('#partTwo').text("");
+							$('#partTwo').focus();
+						}, 3000);
+					}
+				}
+				else {
+					if(partOne.indexOf('.') == -1) { //forgot the .
+						showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[0]); //forgot 'background-color'
+					}else if (partOne.indexOf(scarlettClasses[scarlettCurrentTask]) == -1){
+						showTaskDialog(characters["scarlett"],characters["scarlett"].negativeFeedback[1]); //forgot class name
+					}
+					setTimeout(function(){
+							showTaskDialog(characters["scarlett"],characters["scarlett"].tasks[scarlettCurrentTask]);
+							$('#partOne').text("");
+							$('#partOne').focus();
+						}, 3000);
+				}
 			}
 		}
 		
 		//AMBER
 		if(rosaDone && scarlettDone) {
+			var answer = $('#answer').html().replace('&nbsp;', '').replace('<br>', '').trim();
 			if(answer == amberAnswers[amberCurrentTask]){
 				$('#amberImage').attr('src', 'bridge/task-' + amberClasses[amberCurrentTask] + '-100.png');
 				showTaskDialog(characters["amber"],characters["amber"].positiveFeedback);
@@ -695,6 +751,7 @@ $(document).ready(function(){
 		
 		//CARROT
 		if(rosaDone && scarlettDone && amberDone) {
+			var answer = $('#answer').html().replace('&nbsp;', '').replace('<br>', '').trim();
 			if(answer == carrotAnswers[carrotCurrentTask]){
 				$('#carrotImage').attr('src', 'npc/' + carrotClasses[carrotCurrentTask] + '-front.png');
 				showTaskDialog(characters["carrot"],characters["carrot"].positiveFeedback);
@@ -715,6 +772,7 @@ $(document).ready(function(){
 		
 		//TROGDOR
 		if(rosaDone && scarlettDone && amberDone && carrotDone) {
+			var answer = $('#answer').html().replace('&nbsp;', '').replace('<br>', '').trim();
 			var width = $('#answer').html().replace('&nbsp;', '').split('<br>').join('').trim();
 			var height = $('#answer2').html().replace('&nbsp;', '').split('<br>').join('').trim();
 			
@@ -741,10 +799,10 @@ $(document).ready(function(){
 	
 	//change it to drawMap(0,0) to start from the actual start!
 	//draw the board
-	//offsetX = 2000;
-	//offsetY = 0;
-	//drawMap(offsetY/tileSize, offsetX/tileSize);
-	drawMap(0,0);
+	offsetX = 0;//2000;
+	offsetY = 600;
+	drawMap(offsetY/tileSize, offsetX/tileSize);
+	//drawMap(0,0);
 	
 	//float the avatar thingy
 	floatPlayer();
