@@ -898,4 +898,7 @@ $(document).ready(function(){
 	
 	//make the companion fly around
 	animateCompanion();
+	
+	//show schmo's intro
+	showDialog(characters["schmo"]);
 })
