@@ -565,7 +565,7 @@ $(document).keydown(function(e) {
 	var pX = ((positionX+offsetX)/tileSize); //0-9 + offsetX
 
 	//It's gross, but this will move ya up twice when ya go through the red gate
-	if(map[Math.ceil(pY)][Math.ceil(pX)] == "g1") {
+	if(map[Math.ceil(pY)][Math.ceil(pX)] == "g1" && rosaDone && scarlettDone) {
 		positionY-=tileSize;
 		pY = ((positionY+offsetY)/tileSize);
 	}
