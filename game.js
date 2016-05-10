@@ -237,7 +237,9 @@ function talk(pY, pX) {
 }
 
 function gameOver() {
-	$('body').html('').append('<img id="endImage" src="end.gif" />')
+	if(dragonDone) {
+		$('body').html('').append('<img id="endImage" src="end.gif" />')
+	}
 }
 
 function rosaTask() {
@@ -436,13 +438,19 @@ function dragonTask() {
 	showTaskDialog(characters["dragon"],characters["dragon"].tasks[dragonCurrentTask]);
 	$('#task').show();
 	$('#task').append('<img id="dragonImage" src="task-trogdor.png" height="400" width="400" />');
-	$('.content').html('.' + dragonClasses[dragonCurrentTask] + ' { <br />' + 
+	/*$('.content').html('.' + dragonClasses[dragonCurrentTask] + ' { <br />' + 
 																	'width:&nbsp;<span id="answer" contenteditable="true"> </span>;<br />' + 
 																	'height:&nbsp;<span id="answer2" contenteditable="true"> </span>;<br />' + 
 																 '}')
 	$('#answer').focus();
+	*/
+	$('.content').html('<input type="text" class="dragonTaskAnswers" id="partOne" name="partOne" placeholder=".'+ dragonClasses[dragonCurrentTask] +' {"><br />' +
+					   '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="dragonTaskAnswers" id="partTwoA" name="partTwo" placeholder="width:&nbsp;_____;"> <br />' +
+					   '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="dragonTaskAnswers" id="partTwoB" name="partTwo" placeholder="height:&nbsp;_____;"> <br /><br />' +
+					   '<input type="text" class="dragonTaskAnswers" id="partThree" name="partThree" placeholder="}">');
+	$('#partOne').focus();
 	
-	$('#answer').on('keyup', function(e) {
+	$('.dragonTaskAnswers').on('keyup', function(e) {
 		if(!$(this).html())
 			$(this).html('&nbsp;');
 		if (e.keyCode == 13) {
@@ -770,7 +778,7 @@ $(document).ready(function(){
 		}
 		
 		//AMBER
-		if(rosaDone && scarlettDone) {
+		if(rosaDone && scarlettDone && !amberDone) {
 			var partOne = $('#partOne').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
 			var partTwo = $('#partTwo').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
 			var partThree = $('#partThree').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
@@ -843,7 +851,7 @@ $(document).ready(function(){
 		}
 		
 		//CARROT
-		if(rosaDone && scarlettDone && amberDone) {
+		if(rosaDone && scarlettDone && amberDone && !carrotDone) {
 			var partOne = $('#partOne').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
 			var partTwo = $('#partTwo').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
 			var partThree = $('#partThree').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
@@ -916,7 +924,111 @@ $(document).ready(function(){
 		}
 		
 		//TROGDOR
-		if(rosaDone && scarlettDone && amberDone && carrotDone) {
+		if(rosaDone && scarlettDone && amberDone && carrotDone && !dragonDone) {
+			var partOne = $('#partOne').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+			var partTwoA = $('#partTwoA').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+			var partTwoB = $('#partTwoB').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+			var partThree = $('#partThree').val().split('&nbsp;').join('').split('<br>').join('').split(' ').join('').trim(); 
+			
+			if(partOne == ('.' + dragonClasses[dragonCurrentTask] + '{')) {
+				if(partTwoA == ('width:33%;')) { //Nasty hardcode here
+					if(partTwoB == ('height:50%;')) { //Nasty hardcode here
+						if(partThree == '}') {
+							$('#dragonImage').attr('src', 'trogdor100.png');
+							$('#dragonImage').css('width','100');
+							$('#dragonImage').css('height','100');
+							showTaskDialog(characters["dragon"],characters["dragon"].positiveFeedback);
+							timer = setTimeout(function(){ 
+								//TODO: Dialog
+								dragonCurrentTask++;
+								$('#task').html('');
+								dragonTask();
+							}, 3000);  
+						}
+						else {
+							if(partThree.indexOf('}') == -1){
+								showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[11]); //forgot '}'
+							} else {
+								showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[12]); //catch all
+							}
+							setTimeout(function(){
+								showTaskDialog(characters["dragon"],characters["dragon"].tasks[dragonCurrentTask]);
+								$('#partThree').text("");
+								$('#partThree').focus();
+							}, 3000);
+						}
+					}
+					else {
+						if(partTwoB.indexOf('height') == -1){
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[4]); //forgot 'height'
+						}else if (partTwoB.indexOf(':') == -1){
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[5]); //forgot ':'
+						}
+						else if (partTwoB.indexOf('50') == -1){
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[7]); //forgot the correct height
+						}
+						else if (partTwoB.indexOf('%') == -1){
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[9]); //forgot '%'
+						}
+						else if (partTwoB.indexOf(';') == -1){
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[10]); //forgot ';'
+						}
+						else {
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[12]); //catch all
+						}
+						setTimeout(function(){
+							showTaskDialog(characters["dragon"],characters["dragon"].tasks[dragonCurrentTask]);
+							$('#partTwoB').text("");
+							$('#partTwoB').focus();
+						}, 3000);
+					}
+				}
+				else {
+						if(partTwoA.indexOf('width') == -1){
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[3]); //forgot 'width'
+						}else if (partTwoA.indexOf(':') == -1){
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[5]); //forgot ':'
+						}
+						else if (partTwoA.indexOf('33') == -1){
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[6]); //forgot the correct width
+						}
+						else if (partTwoA.indexOf('%') == -1){
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[8]); //forgot '%'
+						}
+						else if (partTwoA.indexOf(';') == -1){
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[10]); //forgot ';'
+						}
+						else {
+							showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[12]); //catch all
+						}
+						setTimeout(function(){
+							showTaskDialog(characters["dragon"],characters["dragon"].tasks[dragonCurrentTask]);
+							$('#partTwoA').text("");
+							$('#partTwoA').focus();
+						}, 3000);
+					}
+			}
+			else {
+				if(partOne.indexOf('.') == -1) { //forgot the .
+					showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[0]); //forgot '.'
+				}else if (partOne.indexOf(dragonClasses[dragonCurrentTask]) == -1){
+					showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[1]); //forgot class name
+				}
+				else if (partOne.indexOf('{') == -1){
+					showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[2]); //forgot '{'
+				}
+				else {
+					showTaskDialog(characters["dragon"],characters["dragon"].negativeFeedback[12]); //catch all
+				}
+				setTimeout(function(){
+						showTaskDialog(characters["dragon"],characters["dragon"].tasks[dragonCurrentTask]);
+						$('#partOne').text("");
+						$('#partOne').focus();
+					}, 3000);
+			}
+			
+			
+			/*
 			var answer = $('#answer').html().replace('&nbsp;', '').replace('<br>', '').trim();
 			var width = $('#answer').html().replace('&nbsp;', '').split('<br>').join('').trim();
 			var height = $('#answer2').html().replace('&nbsp;', '').split('<br>').join('').trim();
@@ -938,15 +1050,11 @@ $(document).ready(function(){
 					showTaskDialog(characters["dragon"],characters["dragon"].tasks[dragonCurrentTask]);
 					$('#answer').focus();
 				}, 2000)
-			}
+			}*/
 		}
 	});
 	
-	//change it to drawMap(0,0) to start from the actual start!
 	//draw the board
-	//offsetX = 1000;//2000;
-	//offsetY = 0;
-	//drawMap(offsetY/tileSize, offsetX/tileSize);
 	drawMap(0,0);
 	
 	//float the avatar thingy

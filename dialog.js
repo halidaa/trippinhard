@@ -87,6 +87,7 @@ characters["schmo"] = {
 							"hometown":"dark-gray",
 							"hasTask":true,
 							"taskIntro":[
+								"Unless you reduce my, <b>trogdor</b>, <i>width</i> by 1/3 and <i>height</i> by half, you can never defeat me!",
 								"Welcome to material!",
 								"I guess you went a bit too hard on that trip.. But hey! You're here! Much fun.",
 								"Everything here can be modified with CSS, pretty sweet, right?",
@@ -187,10 +188,24 @@ characters["dragon"] = {
 							"At my current <i>width</i> and <i>height</i> you'll be not match for me!"
 						],
 						"tasks":[
-							"TODO",
+							"You'll never defeat me, <b>trogdor</b>, unless you make my <i>width</i> <u>33%</u> and my <i>height</i> <u>50%</u> of what it is now!",
 						],
 						"positiveFeedback":"Noooooooooooooo",
-						"negativeFeedback":"Ha, ha, ha that won't work on me!"
+						"negativeFeedback":[
+								"Looks like you forgot to put a '.' before the class name, you'll never defeat me!",
+								"Ha Ha Ha, you forget to include my name, <b>trogdor</b>, as the class name!",
+								"Forgetting the '{', you won't defeat me like that!",
+								"You aren't even trying to modify my <i>width</i>, how do you expect to beat me?",
+								"You aren't even trying to modify my <i>height</i>, how do you expect to beat me?",
+								"Don't forget to add a ':' between the property name and property value if you want to beat me!",
+								"If you don't make me 33% of my current width, you won't be able to pass!",
+								"If you don't make me 50% of my current height, you won't be able to pass!",
+								"How could you forget to include a '%' following the <i>width</i>? Puny mortal!",
+								"How could you forget to include a '%' following the <i>height</i>? Puny mortal!",
+								"If you don't include a ';' following the property value, you'll never defeat me!",
+								"Forgetting the '}', you won't defeat me like that!",
+								"You'll never defeat me unless you make my <i>width</i>: <u>33%</u> and <i>height</i>:<u>50%</u>!"
+						]
 					};					
 characters["orangeguard"] = {
 								"name":"Guard of the Orange Gate",
